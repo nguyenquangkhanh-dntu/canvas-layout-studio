@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bài 01 - Giới thiệu Web API</title>
+<style>
+body { margin: 0; padding: 32px 16px; background-color: #ffffff; }
+.cls-layout-root, .cls-layout-root * { box-sizing: border-box; }
+.cls-layout-root img { max-width: 100%; }
+.cls-layout-root .cls-rt p { margin: 0 0 var(--cls-ps, 12px); }
+.cls-layout-root .cls-rt h1 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 32px; line-height: 1.3; }
+.cls-layout-root .cls-rt h2 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 28px; line-height: 1.3; }
+.cls-layout-root .cls-rt h3 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 22px; line-height: 1.3; }
+.cls-layout-root .cls-rt h4 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 20px; line-height: 1.3; }
+.cls-layout-root .cls-rt h5 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 18px; line-height: 1.3; }
+.cls-layout-root .cls-rt h6 { margin: 0 0 var(--cls-ps, 12px); color: #163a56; font-size: 16px; line-height: 1.3; }
+.cls-layout-root .cls-rt ul { margin: 0 0 var(--cls-ps, 12px); padding-left: 1.6em; }
+.cls-layout-root .cls-rt ol { margin: 0 0 var(--cls-ps, 12px); padding-left: 1.6em; }
+.cls-layout-root .cls-rt li { margin: 0 0 4px; }
+.cls-layout-root .cls-rt li > p { margin: 0; }
+.cls-layout-root .cls-rt li > ul { margin: 4px 0 0; }
+.cls-layout-root .cls-rt li > ol { margin: 4px 0 0; }
+.cls-layout-root .cls-rt blockquote { margin: 0 0 var(--cls-ps, 12px); padding: 4px 0 4px 16px; border-left: 3px solid #1f5f8b; color: #475569; }
+.cls-layout-root .cls-rt pre { margin: 0 0 var(--cls-ps, 12px); padding: 12px 14px; background-color: #f1f4f8; border-radius: 6px; white-space: pre; overflow-x: auto; font-family: "Courier New", Consolas, monospace; font-size: 15px; }
+.cls-layout-root .cls-rt code { font-family: "Courier New", Consolas, monospace; font-size: 0.92em; background-color: #eef2f6; padding: 1px 5px; border-radius: 4px; }
+.cls-layout-root .cls-rt pre > code { background-color: transparent; padding: 0; font-size: 1em; }
+.cls-layout-root .cls-rt a { color: #1f5f8b; text-decoration: underline; }
+.cls-layout-root .cls-rt > :last-child { margin-bottom: 0; }
+.cls-layout-root .cls-rt > :first-child { margin-top: 0; }
+.cls-layout-root { display: flex; flex-direction: column; max-width: 960px; margin-left: auto; margin-right: auto; color: #1f2a37; gap: 24px; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, Tahoma, "Liberation Sans", sans-serif; font-size: 18px; line-height: 1.65; }
+.cls-layout-root .c1 { display: flex; flex-direction: column; align-items: stretch; background: linear-gradient(120deg, #163a56, #1f5f8b); color: #ffffff; border: none; border-radius: 14px; padding: 32px; gap: 10px; }
+.cls-layout-root .c2 { color: #cfe2f1; font-size: 15px; --cls-ps: 12px; }
+.cls-layout-root .c3 { color: #ffffff; font-size: 32px; line-height: 1.3; margin: 0px; }
+.cls-layout-root .c4 { color: #e8f1f8; --cls-ps: 12px; }
+.cls-layout-root .c5 { display: flex; flex-direction: column; background-color: #eef5fb; color: #1f2a37; border-left: 5px solid #1f5f8b; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c6 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c7 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c8 { margin: 0; font-size: 20px; line-height: 1.3; color: #163a56; }
+.cls-layout-root .c9 { --cls-ps: 12px; }
+.cls-layout-root .c10 { display: flex; flex-direction: column; align-items: stretch; border: none; border-radius: 12px; padding: 0px; gap: 16px; }
+.cls-layout-root .c11 { margin: 0; color: #163a56; font-size: 28px; line-height: 1.3; }
+.cls-layout-root .c12 { display: flex; flex-wrap: wrap; align-items: stretch; gap: 24px; }
+.cls-layout-root .c13 { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.cls-layout-root .c14 { --cls-ps: 12px; }
+.cls-layout-root .c15 { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.cls-layout-root .c16 { display: flex; flex-direction: column; background-color: #16212e; color: #e6edf3; border-radius: 10px; padding: 16px 18px; gap: 10px; }
+.cls-layout-root .c17 { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.cls-layout-root .c18 { font-size: 13px; color: #9fb0c0; }
+.cls-layout-root .c19 { font-size: 13px; font-family: inherit; color: #e6edf3; background-color: transparent; border: 1px solid #3b4b5c; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+.cls-layout-root .c20 { margin: 0; white-space: pre; overflow-x: auto; font-family: "Courier New", Consolas, monospace; font-size: 15px; line-height: 1.55; color: inherit; }
+.cls-layout-root .c21 { font-family: inherit; }
+.cls-layout-root .c22 { display: flex; flex-direction: column; background-color: #16212e; color: #e6edf3; border-radius: 10px; padding: 16px 18px; gap: 10px; }
+.cls-layout-root .c23 { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.cls-layout-root .c24 { font-size: 13px; color: #9fb0c0; }
+.cls-layout-root .c25 { font-size: 13px; font-family: inherit; color: #e6edf3; background-color: transparent; border: 1px solid #3b4b5c; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+.cls-layout-root .c26 { margin: 0; white-space: pre; overflow-x: auto; font-family: "Courier New", Consolas, monospace; font-size: 15px; line-height: 1.55; color: inherit; }
+.cls-layout-root .c27 { font-family: inherit; }
+.cls-layout-root .c28 { display: flex; flex-direction: column; align-items: stretch; border: none; border-radius: 12px; padding: 0px; gap: 16px; }
+.cls-layout-root .c29 { margin: 0; color: #163a56; font-size: 28px; line-height: 1.3; }
+.cls-layout-root .c30 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.cls-layout-root .c31 { display: flex; flex-direction: column; align-items: stretch; background-color: #ffffff; border: 1px solid #dbe3ec; border-left: 4px solid #1f5f8b; border-radius: 8px; padding: 16px 18px; gap: 6px; }
+.cls-layout-root .c32 { color: #1f5f8b; font-size: 20px; line-height: 1.3; margin: 0px; }
+.cls-layout-root .c33 { font-size: 16px; --cls-ps: 12px; }
+.cls-layout-root .c34 { display: flex; flex-direction: column; align-items: stretch; background-color: #ffffff; border: 1px solid #dbe3ec; border-left: 4px solid #2f7d4f; border-radius: 8px; padding: 16px 18px; gap: 6px; }
+.cls-layout-root .c35 { color: #2f7d4f; font-size: 20px; line-height: 1.3; margin: 0px; }
+.cls-layout-root .c36 { font-size: 16px; --cls-ps: 12px; }
+.cls-layout-root .c37 { display: flex; flex-direction: column; align-items: stretch; background-color: #ffffff; border: 1px solid #dbe3ec; border-left: 4px solid #946200; border-radius: 8px; padding: 16px 18px; gap: 6px; }
+.cls-layout-root .c38 { color: #946200; font-size: 20px; line-height: 1.3; margin: 0px; }
+.cls-layout-root .c39 { font-size: 16px; --cls-ps: 12px; }
+.cls-layout-root .c40 { display: flex; flex-direction: column; align-items: stretch; background-color: #ffffff; border: 1px solid #dbe3ec; border-left: 4px solid #b42318; border-radius: 8px; padding: 16px 18px; gap: 6px; }
+.cls-layout-root .c41 { color: #b42318; font-size: 20px; line-height: 1.3; margin: 0px; }
+.cls-layout-root .c42 { font-size: 16px; --cls-ps: 12px; }
+.cls-layout-root .c43 { display: flex; flex-direction: column; background-color: #fdf1f0; color: #1f2a37; border-left: 5px solid #b42318; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c44 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c45 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c46 { margin: 0; font-size: 20px; line-height: 1.3; color: #8a1c14; }
+.cls-layout-root .c47 { --cls-ps: 12px; }
+.cls-layout-root .c48 { display: flex; flex-direction: column; align-items: stretch; border: none; border-radius: 12px; padding: 0px; gap: 16px; }
+.cls-layout-root .c49 { margin: 0; color: #163a56; font-size: 28px; line-height: 1.3; }
+.cls-layout-root .c50 { --cls-ps: 12px; }
+.cls-layout-root .c51 { display: flex; flex-direction: column; background-color: #16212e; color: #e6edf3; border-radius: 10px; padding: 16px 18px; gap: 10px; }
+.cls-layout-root .c52 { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.cls-layout-root .c53 { font-size: 13px; color: #9fb0c0; }
+.cls-layout-root .c54 { font-size: 13px; font-family: inherit; color: #e6edf3; background-color: transparent; border: 1px solid #3b4b5c; border-radius: 6px; padding: 3px 10px; cursor: pointer; }
+.cls-layout-root .c55 { margin: 0; white-space: pre; overflow-x: auto; font-family: "Courier New", Consolas, monospace; font-size: 15px; line-height: 1.55; color: inherit; }
+.cls-layout-root .c56 { font-family: inherit; }
+.cls-layout-root .c57 { display: flex; flex-direction: column; background-color: #f4f1fb; color: #1f2a37; border-left: 5px solid #6d4fc2; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c58 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c59 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c60 { margin: 0; font-size: 20px; line-height: 1.3; color: #4a3391; }
+.cls-layout-root .c61 { --cls-ps: 12px; }
+.cls-layout-root .c62 { border: none; border-top: 1px solid #d5dce3; height: 0; margin: 4px 0px; }
+.cls-layout-root .c63 { display: flex; flex-wrap: wrap; align-items: stretch; gap: 24px; }
+.cls-layout-root .c64 { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.cls-layout-root .c65 { display: flex; flex-direction: column; background-color: #eef7f8; color: #1f2a37; border-left: 5px solid #0e7490; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c66 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c67 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c68 { margin: 0; font-size: 20px; line-height: 1.3; color: #0b5568; }
+.cls-layout-root .c69 { --cls-ps: 12px; }
+.cls-layout-root .c70 { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.cls-layout-root .c71 { display: flex; flex-direction: column; background-color: #fdf4fa; color: #1f2a37; border-left: 5px solid #a3337a; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c72 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c73 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c74 { margin: 0; font-size: 20px; line-height: 1.3; color: #7a2159; }
+.cls-layout-root .c75 { --cls-ps: 12px; }
+.cls-layout-root .c76 { display: flex; flex-direction: column; background-color: #f3f5f9; color: #1f2a37; border-left: 5px solid #1f4e79; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c77 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c78 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c79 { margin: 0; font-size: 20px; line-height: 1.3; color: #1f4e79; }
+.cls-layout-root .c80 { --cls-ps: 12px; }
+.cls-layout-root .c81 { display: flex; flex-direction: column; align-items: stretch; background-color: #f8fafc; border: 1px solid #dbe3ec; border-radius: 8px; padding: 20px 24px; gap: 12px; }
+.cls-layout-root .c82 { margin: 0; color: #163a56; font-size: 22px; line-height: 1.3; }
+.cls-layout-root .c83 { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.cls-layout-root .c84 { display: flex; gap: 10px; align-items: flex-start; margin: 0; }
+.cls-layout-root .c85 { color: #1f5f8b; flex-shrink: 0; line-height: inherit; }
+.cls-layout-root .c86 { display: flex; gap: 10px; align-items: flex-start; margin: 0; }
+.cls-layout-root .c87 { color: #1f5f8b; flex-shrink: 0; line-height: inherit; }
+.cls-layout-root .c88 { display: flex; gap: 10px; align-items: flex-start; margin: 0; }
+.cls-layout-root .c89 { color: #1f5f8b; flex-shrink: 0; line-height: inherit; }
+.cls-layout-root .c90 { display: flex; flex-direction: column; background-color: #f7f8fa; color: #1f2a37; border-left: 5px solid #475569; border-radius: 10px; padding: 18px 22px; gap: 10px; }
+.cls-layout-root .c91 { display: flex; align-items: center; gap: 10px; }
+.cls-layout-root .c92 { font-size: 1.25em; line-height: 1; }
+.cls-layout-root .c93 { margin: 0; font-size: 20px; line-height: 1.3; color: #1f2a37; }
+.cls-layout-root .c94 { --cls-ps: 12px; }
+</style>
+</head>
+<body>
+<div class="cls-layout-root">
+  <div class="cls-m-container c1">
+    <div class="cls-m-text cls-rt c2"><p>Bài học 01 · Lập trình Web API</p></div>
+    <h2 class="cls-m-heading c3">Web API: khái niệm và kiến trúc cơ bản</h2>
+    <div class="cls-m-text cls-rt c4"><p>Bài này giúp sinh viên hiểu Web API là gì, cách client và server trao đổi dữ liệu qua HTTP, và viết được endpoint đầu tiên bằng ASP.NET Core.</p></div>
+  </div>
+  <aside class="cls-m-callout cls-v-objectives c5">
+    <div class="c6">
+      <span aria-hidden="true" class="c7">🎯</span>
+      <h3 class="c8">Mục tiêu học tập</h3>
+    </div>
+    <div class="cls-m-text cls-rt c9"><p>Sau bài học, sinh viên có thể:</p><ul><li><p>Trình bày khái niệm Web API và mô hình client - server.</p></li><li><p>Phân biệt các phương thức HTTP: GET, POST, PUT, DELETE.</p></li><li><p>Đọc hiểu một request và response dạng JSON.</p></li></ul></div>
+  </aside>
+  <section class="cls-m-container c10">
+    <h2 class="c11">1. Web API là gì?</h2>
+    <div class="cls-m-columns c12">
+      <div class="cls-m-column c13">
+        <div class="cls-m-text cls-rt c14"><p><strong>Web API</strong> là tập hợp các điểm truy cập (endpoint) cho phép chương trình khác gửi yêu cầu và nhận dữ liệu qua giao thức HTTP.</p><p>Thay vì trả về trang HTML cho người dùng, Web API thường trả về dữ liệu <strong>JSON</strong> để ứng dụng web, mobile hoặc desktop tự hiển thị.</p></div>
+      </div>
+      <div class="cls-m-column c15">
+        <div class="cls-m-code c16">
+          <div class="c17">
+            <span class="c18">Request · HTTP</span>
+            <button type="button" data-cls-copy class="c19">Sao chép</button>
+          </div>
+          <pre class="c20"><code class="c21">GET /api/books/1 HTTP/1.1
+Host: localhost:5000
+Accept: application/json</code></pre>
+        </div>
+        <div class="cls-m-code c22">
+          <div class="c23">
+            <span class="c24">Response · JSON</span>
+            <button type="button" data-cls-copy class="c25">Sao chép</button>
+          </div>
+          <pre class="c26"><code class="c27">{
+  &quot;id&quot;: 1,
+  &quot;title&quot;: &quot;Lập trình C# cơ bản&quot;,
+  &quot;available&quot;: true
+}</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cls-m-container c28">
+    <h2 class="c29">2. Các phương thức HTTP thường dùng</h2>
+    <div class="cls-m-grid c30">
+      <div class="cls-m-container c31">
+        <h3 class="cls-m-heading c32">GET</h3>
+        <div class="cls-m-text cls-rt c33"><p>Lấy dữ liệu. Không làm thay đổi trạng thái trên server.</p></div>
+      </div>
+      <div class="cls-m-container c34">
+        <h3 class="cls-m-heading c35">POST</h3>
+        <div class="cls-m-text cls-rt c36"><p>Tạo mới một tài nguyên, dữ liệu gửi trong body.</p></div>
+      </div>
+      <div class="cls-m-container c37">
+        <h3 class="cls-m-heading c38">PUT</h3>
+        <div class="cls-m-text cls-rt c39"><p>Cập nhật toàn bộ một tài nguyên đã có.</p></div>
+      </div>
+      <div class="cls-m-container c40">
+        <h3 class="cls-m-heading c41">DELETE</h3>
+        <div class="cls-m-text cls-rt c42"><p>Xóa một tài nguyên theo định danh.</p></div>
+      </div>
+    </div>
+    <aside class="cls-m-callout cls-v-important c43">
+      <div class="c44">
+        <span aria-hidden="true" class="c45">❗</span>
+        <h3 class="c46">Phân biệt PUT và PATCH</h3>
+      </div>
+      <div class="cls-m-text cls-rt c47"><p><strong>PUT</strong> gửi lại toàn bộ đối tượng; <strong>PATCH</strong> chỉ gửi các trường cần thay đổi. Dùng sai có thể làm mất dữ liệu của những trường không được gửi.</p></div>
+    </aside>
+  </section>
+  <section class="cls-m-container c48">
+    <h2 class="c49">3. Viết endpoint đầu tiên</h2>
+    <div class="cls-m-text cls-rt c50"><p>Với <em>Minimal API</em> của ASP.NET Core, chỉ cần vài dòng để có một endpoint trả về danh sách sách dạng JSON:</p></div>
+    <div class="cls-m-code c51">
+      <div class="c52">
+        <span class="c53">Program.cs · C#</span>
+        <button type="button" data-cls-copy class="c54">Sao chép</button>
+      </div>
+      <pre class="c55"><code class="c56">var builder = WebApplication.CreateBuilder(args);
+var app = builder.Build();
+
+var books = new[] { new { Id = 1, Title = &quot;Lập trình C# cơ bản&quot; } };
+
+app.MapGet(&quot;/api/books&quot;, () =&gt; books);
+
+app.Run();</code></pre>
+    </div>
+    <aside class="cls-m-callout cls-v-example c57">
+      <div class="c58">
+        <span aria-hidden="true" class="c59">💡</span>
+        <h3 class="c60">Thử ngay</h3>
+      </div>
+      <div class="cls-m-text cls-rt c61"><p>Chạy lệnh <code>dotnet run</code>, sau đó mở trình duyệt tới <code>http://localhost:5000/api/books</code> để xem kết quả JSON.</p></div>
+    </aside>
+  </section>
+  <hr class="cls-m-divider c62">
+  <div class="cls-m-columns c63">
+    <div class="cls-m-column c64">
+      <aside class="cls-m-callout cls-v-exercise c65">
+        <div class="c66">
+          <span aria-hidden="true" class="c67">✍️</span>
+          <h3 class="c68">Bài tập</h3>
+        </div>
+        <div class="cls-m-text cls-rt c69"><ol><li><p>Thêm endpoint <code>GET /api/books/{id}</code> trả về một cuốn sách.</p></li><li><p>Trả về mã 404 khi không tìm thấy.</p></li><li><p>Kiểm tra bằng Postman và chụp màn hình kết quả.</p></li></ol></div>
+      </aside>
+    </div>
+    <div class="cls-m-column c70">
+      <aside class="cls-m-callout cls-v-check c71">
+        <div class="c72">
+          <span aria-hidden="true" class="c73">❓</span>
+          <h3 class="c74">Kiểm tra nhanh</h3>
+        </div>
+        <div class="cls-m-text cls-rt c75"><p><strong>Câu hỏi:</strong> Phương thức nào dùng để tạo mới dữ liệu?</p><ol type="A"><li><p>GET</p></li><li><p>POST</p></li><li><p>DELETE</p></li></ol><p><em>Đáp án: B. POST gửi dữ liệu mới trong phần body của request.</em></p></div>
+      </aside>
+    </div>
+  </div>
+  <aside class="cls-m-callout cls-v-summary c76">
+    <div class="c77">
+      <span aria-hidden="true" class="c78">📌</span>
+      <h3 class="c79">Tóm tắt</h3>
+    </div>
+    <div class="cls-m-text cls-rt c80"><ul><li><p>Web API trao đổi dữ liệu qua HTTP, thường ở dạng JSON.</p></li><li><p>Mỗi phương thức HTTP có một mục đích riêng.</p></li><li><p>ASP.NET Core Minimal API giúp tạo endpoint nhanh với ít mã.</p></li></ul></div>
+  </aside>
+  <div class="cls-m-container c81">
+    <h3 class="c82">Trước buổi học sau</h3>
+    <ul class="cls-m-checklist c83">
+      <li class="c84">
+        <span aria-hidden="true" class="c85">☑</span>
+        <span>Đọc lại mục 1 và 2 của bài</span>
+      </li>
+      <li class="c86">
+        <span aria-hidden="true" class="c87">☐</span>
+        <span>Hoàn thành bài tập thực hành</span>
+      </li>
+      <li class="c88">
+        <span aria-hidden="true" class="c89">☐</span>
+        <span>Nộp ảnh chụp kết quả trên Canvas trước buổi học sau</span>
+      </li>
+    </ul>
+  </div>
+  <aside class="cls-m-callout cls-v-resources c90">
+    <div class="c91">
+      <span aria-hidden="true" class="c92">🔗</span>
+      <h3 class="c93">Tài liệu tham khảo</h3>
+    </div>
+    <div class="cls-m-text cls-rt c94"><ul><li><p><a href="https://learn.microsoft.com/aspnet/core/fundamentals/minimal-apis" target="_blank" rel="noopener noreferrer">Microsoft Learn: Minimal APIs</a></p></li><li><p><a href="https://developer.mozilla.org/vi/docs/Web/HTTP/Methods" target="_blank" rel="noopener noreferrer">MDN: HTTP request methods</a></p></li></ul></div>
+  </aside>
+</div>
+<script>
+(function () {
+  'use strict';
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  var now = new Date();
+  var today = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+  var WD = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  function shortDate(k) { var d = new Date(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10)); return WD[d.getDay()] + ' ' + k.slice(8, 10) + '/' + k.slice(5, 7); }
+
+  /* Nút sao chép code */
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest && e.target.closest('[data-cls-copy]');
+    if (!btn) return;
+    var code = btn.parentNode.parentNode.querySelector('pre code');
+    if (!code || !navigator.clipboard) return;
+    navigator.clipboard.writeText(code.textContent).then(function () {
+      var old = btn.textContent; btn.textContent = 'Đã sao chép';
+      setTimeout(function () { btn.textContent = old; }, 1500);
+    });
+  });
+
+  /* Tooltip dùng chung */
+  var tip = null, tipFor = null, lastPointer = 'mouse';
+  function ensureTip() {
+    if (tip) return tip;
+    tip = document.createElement('div');
+    tip.setAttribute('role', 'tooltip');
+    tip.style.cssText = 'position:fixed;z-index:9999;max-width:320px;padding:10px 12px;border-radius:8px;background:#16212e;color:#e8eef4;font:13px/1.45 "Segoe UI",Roboto,Arial,sans-serif;box-shadow:0 10px 28px rgba(16,32,48,.25);pointer-events:none;display:none;';
+    document.body.appendChild(tip);
+    return tip;
+  }
+  function showTip(el) {
+    var t = ensureTip(), data;
+    try { data = JSON.parse(el.getAttribute('data-cls-tip')); } catch (err) { return; }
+    t.textContent = '';
+    var h = document.createElement('div'); h.style.cssText = 'color:#9fb4c7;font-weight:600;margin-bottom:6px'; h.textContent = data.h; t.appendChild(h);
+    data.s.forEach(function (s, i) {
+      var box = document.createElement('div');
+      if (i) box.style.cssText = 'margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.14)';
+      var k = document.createElement('span'); k.textContent = s.k; k.style.cssText = 'display:inline-block;font-size:11px;padding:0 6px;border-radius:4px;color:#fff;margin-right:6px;background:' + s.c; box.appendChild(k);
+      var m = document.createElement('span'); m.textContent = s.m; m.style.cssText = 'color:#b6c4d2;font-size:12px'; box.appendChild(m);
+      var tt = document.createElement('div'); tt.textContent = s.t; tt.style.fontWeight = '600'; box.appendChild(tt);
+      if (s.n) { var n = document.createElement('div'); n.textContent = s.n; n.style.cssText = 'color:#b6c4d2;font-size:12px'; box.appendChild(n); }
+      t.appendChild(box);
+    });
+    t.style.display = 'block';
+    var r = el.getBoundingClientRect(), tw = t.offsetWidth, th = t.offsetHeight;
+    var x = Math.min(window.innerWidth - tw - 12, Math.max(12, r.left + r.width / 2 - tw / 2));
+    var y = r.bottom + 8; if (y + th > window.innerHeight - 8) y = Math.max(8, r.top - th - 8);
+    t.style.left = x + 'px'; t.style.top = y + 'px'; tipFor = el;
+  }
+  function hideTip() { if (tip) tip.style.display = 'none'; tipFor = null; }
+  document.addEventListener('pointerdown', function (e) { lastPointer = e.pointerType || 'mouse'; }, true);
+  document.addEventListener('mouseover', function (e) {
+    if (lastPointer === 'touch') return;
+    var el = e.target.closest && e.target.closest('[data-cls-tip]');
+    if (el) showTip(el); else if (tipFor) hideTip();
+  });
+  window.addEventListener('scroll', function () {
+    if (!tipFor) return;
+    var r = tipFor.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) hideTip(); else showTip(tipFor);
+  }, true);
+
+  /* Lịch học */
+  var cals = document.querySelectorAll('[data-cls-cal]');
+  Array.prototype.forEach.call(cals, function (root) {
+    var blocks = Array.prototype.slice.call(root.querySelectorAll('[data-cls-month]'));
+    var dim = root.getAttribute('data-cls-dim') === '1';
+    Array.prototype.forEach.call(root.querySelectorAll('[title]'), function (el) {
+      if (el.closest('[data-cls-tip]')) el.removeAttribute('title');
+    });
+    var start = root.getAttribute('data-cls-start');
+    if (root.getAttribute('data-cls-auto') === '1') {
+      var tm = today.slice(0, 7);
+      for (var i = 0; i < blocks.length; i += 1) if (blocks[i].getAttribute('data-cls-month') === tm) start = tm;
+    }
+    var cur = 0;
+    blocks.forEach(function (b, i) { if (b.getAttribute('data-cls-month') === start) cur = i; });
+    function show(i) {
+      cur = Math.max(0, Math.min(blocks.length - 1, i));
+      blocks.forEach(function (b, j) { b.style.display = j === cur ? '' : 'none'; });
+      hideTip();
+    }
+    show(cur);
+    root.addEventListener('click', function (e) {
+      var nav = e.target.closest('[data-cls-nav]');
+      if (nav) { e.preventDefault(); show(cur + Number(nav.getAttribute('data-cls-nav'))); return; }
+      var cell = e.target.closest('[data-cls-tip]');
+      if (cell && lastPointer === 'touch' && tipFor !== cell) { e.preventDefault(); showTip(cell); }
+    });
+    Array.prototype.forEach.call(root.querySelectorAll('[data-cls-day]'), function (el) {
+      var k = el.getAttribute('data-cls-day');
+      if (k === today) {
+        if (el.hasAttribute('data-cls-ring')) {
+          el.style.boxShadow = el.tagName === 'A' ? '0 0 0 2px #fff, 0 0 0 4px #1f2a37' : 'inset 0 0 0 2px #1f5f8b';
+          if (el.tagName !== 'A') el.style.color = '#1f5f8b';
+        }
+        var dn = el.querySelector('[data-cls-dn]');
+        if (dn) dn.style.cssText += ';display:inline-block;min-width:22px;border-radius:11px;background:#1f5f8b;color:#fff;text-align:center';
+      } else if (dim && k < today && (el.hasAttribute('data-cls-tip') || el.tagName === 'LI')) {
+        el.style.opacity = '0.55';
+      }
+    });
+    var data = root.getAttribute('data-cls-sessions');
+    var next = root.querySelector('[data-cls-next]');
+    if (data && next) {
+      var list = JSON.parse(data), nx = null;
+      for (var k = 0; k < list.length; k += 1) if (list[k].d >= today) { nx = list[k]; break; }
+      next.textContent = '';
+      if (!nx) { next.textContent = 'Không còn buổi học sắp tới.'; return; }
+      next.appendChild(document.createTextNode('Buổi tới: '));
+      var b = document.createElement('strong'); b.textContent = shortDate(nx.d); next.appendChild(b);
+      next.appendChild(document.createTextNode(' · '));
+      var a = document.createElement('a'); a.href = nx.u; a.textContent = nx.l; a.style.color = '#1f5f8b';
+      if (nx.n) { a.target = '_blank'; a.rel = 'noopener noreferrer'; }
+      next.appendChild(a);
+    }
+  });
+
+  /* Tiến độ khóa học */
+  Array.prototype.forEach.call(document.querySelectorAll('[data-cls-prog]'), function (root) {
+    var c = JSON.parse(root.getAttribute('data-cls-prog')), pct = 0, text = '';
+    function dn(k) { return Date.UTC(+k.slice(0, 4), +k.slice(5, 7) - 1, +k.slice(8, 10)) / 864e5; }
+    var week = 0;
+    for (var i = 0; i < c.weekStarts.length; i += 1) if (c.weekStarts[i] <= today) week = i + 1;
+    if (today > c.end) week = c.weeks;
+    if (c.basis === 'session' || c.basis === 'periods') {
+      var past = c.done.filter(function (x) { return c.ct ? x.d <= today : x.d < today; });
+      var done = past.length, total = Math.max(done, c.total || 1);
+      if (c.basis === 'session') {
+        pct = Math.round(done / total * 100); text = 'Đã học ' + done + '/' + total + ' buổi';
+      } else {
+        var dp = past.reduce(function (n, x) { return n + x.p; }, 0);
+        pct = c.tp > 0 ? Math.round(dp / c.tp * 100) : 0;
+        text = 'Đã học ' + dp + '/' + c.tp + ' tiết · Buổi ' + done + '/' + total;
+      }
+    } else {
+      pct = Math.round(Math.max(0, Math.min(1, (dn(today) - dn(c.start)) / Math.max(1, dn(c.end) - dn(c.start)))) * 100);
+      text = today < c.start ? 'Chưa bắt đầu' : today > c.end ? 'Đã kết thúc' : 'Tuần ' + week + '/' + c.weeks;
+    }
+    var el = root.querySelector('[data-p-pct]'); if (el) el.textContent = pct + '%';
+    el = root.querySelector('[data-p-txt]'); if (el) el.textContent = text;
+    el = root.querySelector('[data-p-fill]'); if (el) el.style.width = pct + '%';
+    Array.prototype.forEach.call(root.querySelectorAll('[data-p-w]'), function (w) {
+      var n = +w.getAttribute('data-p-w');
+      var isDone = c.basis === 'date' ? n < week : n / c.weeks * 100 <= pct;
+      var isCur = c.basis === 'date' && n === week && today <= c.end;
+      w.style.backgroundColor = isDone ? c.color : isCur ? c.tint : '#e5eaf0';
+    });
+  });
+})();
+</script>
+</body>
+</html>

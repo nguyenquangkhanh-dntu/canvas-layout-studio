@@ -1,0 +1,1194 @@
+<title>Bộ Tiện ích Layout Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Bố cục: trang duyệt thiết kế; khối trên mô phỏng trình thiết kế (thư viện | trang | thuộc tính), bên dưới là đặc tả. */
+:root {
+  --desk: #e4e9ee;
+  --desk-dot: #d3dbe3;
+  --paper: #ffffff;
+  --panel: #f8fafb;
+  --panel-2: #eef2f5;
+  --ink: #1d2b3a;
+  --ink-2: #4a5a6a;
+  --ink-3: #7b8896;
+  --rule: #d7dee5;
+  --rule-2: #e8edf2;
+  --accent: #1f5f8b;
+  --accent-ink: #163a56;
+  --accent-soft: #e2edf6;
+  --warn: #8a5a00;
+  --warn-soft: #fff4dc;
+  --ok: #2f7d4f;
+  --danger: #b42318;
+  --font-ui: "Segoe UI", Roboto, "Helvetica Neue", Arial, Tahoma, "Liberation Sans", sans-serif;
+  --font-mono: Consolas, "Courier New", monospace;
+  --pop: 0 10px 28px rgba(16, 32, 48, .18), 0 1px 3px rgba(16, 32, 48, .12);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--desk); color: var(--ink); font: 14px/1.5 var(--font-ui); }
+.wrap { max-width: 1480px; margin: 0 auto; padding-block: 24px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: flex; flex-direction: column; gap: 24px; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+code { font-family: var(--font-mono); font-size: .92em; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+
+/* ---------- Đầu trang ---------- */
+.intro { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end; justify-content: space-between; }
+.intro h1 { margin: 0; font-size: 28px; line-height: 1.2; text-wrap: balance; }
+.intro p { margin: 6px 0 0; max-width: 72ch; color: var(--ink-2); font-size: 15px; }
+.status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+
+/* ---------- Bàn làm việc mô phỏng ---------- */
+.bench { display: grid; grid-template-columns: 250px minmax(0, 1fr) 340px; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--paper); min-height: 800px; }
+.bench > * { min-width: 0; }
+.lib, .props { background: var(--panel); }
+.lib { border-right: 1px solid var(--rule); }
+.props { border-left: 1px solid var(--rule); display: flex; flex-direction: column; max-height: 1180px; }
+.pane-title { padding: 10px 14px; font-size: 12px; font-weight: 600; color: var(--ink-2); border-bottom: 1px solid var(--rule); background: var(--paper); }
+.lib-group { border-bottom: 1px solid var(--rule-2); }
+.lib-head { display: flex; align-items: center; gap: 8px; padding: 9px 14px; font-weight: 600; font-size: 13px; color: var(--ink-2); }
+.lib-head .n { margin-left: auto; font-weight: 400; color: var(--ink-3); font-size: 11.5px; }
+.lib-head.new { color: var(--accent-ink); background: var(--accent-soft); }
+.lib-item { display: flex; width: 100%; align-items: center; gap: 10px; padding: 7px 14px 7px 18px; border: 0; background: none; text-align: left; }
+.lib-item:hover { background: var(--paper); }
+.lib-item .ic { width: 30px; height: 30px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: var(--paper); border: 1px solid var(--rule-2); color: var(--accent); }
+.lib-item b { display: block; font-size: 12.5px; }
+.lib-item span span { display: block; font-size: 11.5px; color: var(--ink-3); }
+.lib-item[aria-current="true"] { background: var(--paper); box-shadow: inset 3px 0 0 var(--accent); }
+.lib-note { margin: 10px 14px; font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+
+.stage-col { display: flex; flex-direction: column; background: var(--desk); }
+.stage-bar { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 8px 12px; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--paper); max-width: 100%; overflow-x: auto; }
+.seg button { border: 0; border-right: 1px solid var(--rule); background: none; padding: 5px 11px; font-size: 12.5px; color: var(--ink-2); white-space: nowrap; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.stage-hint { padding: 6px 12px; font-size: 12px; color: var(--ink-3); background: var(--paper); border-bottom: 1px solid var(--rule); }
+.stage { flex: 1; overflow: auto; padding: 24px; background-color: var(--desk); background-image: radial-gradient(var(--desk-dot) 1px, transparent 1px); background-size: 18px 18px; }
+.sheet { margin: 0 auto; background: var(--paper); box-shadow: 0 1px 2px rgba(16,32,48,.08), 0 8px 24px rgba(16,32,48,.08); padding: 28px; max-width: 100%; }
+.sheet.phone { padding: 16px; }
+.mode-note { margin: 0 0 14px; padding: 8px 12px; border-radius: 6px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; line-height: 1.5; }
+.mode-bad { padding: 14px 16px; border: 1.5px dashed #d9a8a3; border-radius: 10px; background: #fdf6f5; color: #8a1c14; font-size: 13px; line-height: 1.55; }
+[data-inst] { position: relative; }
+.pick { cursor: pointer; border-radius: 12px; }
+.pick.sel { outline: 2px solid var(--accent); outline-offset: 4px; }
+.pick-tag { position: absolute; top: -22px; left: 0; font-size: 11px; font-weight: 600; color: #fff; background: var(--accent); padding: 1px 7px; border-radius: 4px 4px 0 0; }
+
+/* Trang mẫu: nội dung chính + cột bên */
+.demo-page { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; }
+.demo-main { flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 14px; color: #1f2a37; }
+.demo-main h2 { margin: 0; font-size: 26px; color: #163a56; line-height: 1.3; }
+.demo-main p { margin: 0; font-size: 17px; line-height: 1.65; }
+.demo-main .ph { height: 12px; border-radius: 6px; background: #eef2f6; }
+.demo-side { flex: 0 1 260px; min-width: 220px; display: flex; flex-direction: column; gap: 30px; }
+
+/* ---------- Lịch học (tương tác) ---------- */
+.cal { container-type: inline-size; font-family: var(--font-ui); color: #1f2a37; }
+.cal-box { display: flex; flex-direction: column; gap: 12px; }
+.cal-top { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.cal-title { margin: 0; font-size: 20px; line-height: 1.3; flex: 1 1 220px; }
+.cal-month { font-size: 17px; font-weight: 600; min-width: 132px; text-align: center; font-variant-numeric: tabular-nums; }
+.cal-nav { display: inline-flex; align-items: center; gap: 4px; }
+.cal-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 34px; padding: 0 10px; border: 1px solid #d5dce3; border-radius: 8px; background: #fff; color: #1f2a37; font-size: 14px; }
+.cal-btn:hover { background: #f1f5f9; }
+.cal-grid { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
+.cal-grid th { padding: 6px 0; font-size: 12.5px; font-weight: 600; color: #5b6b77; text-align: center; }
+.cal-grid th.wk, .cal-grid td.wk { width: 44px; }
+.cal-grid td { height: 76px; vertical-align: top; padding: 4px; border-top: 1px solid #e5eaf0; border-left: 1px solid #e5eaf0; }
+.cal-grid tr td:last-child { border-right: 1px solid #e5eaf0; }
+.cal-grid tbody tr:last-child td { border-bottom: 1px solid #e5eaf0; }
+.cal-grid td.wk { border-left: 0; text-align: center; vertical-align: middle; font-size: 13px; font-weight: 600; color: #7b8896; font-variant-numeric: tabular-nums; }
+.cal-grid td.wk + td { border-left: 1px solid #e5eaf0; }
+.cal-grid td.out { background: #fafbfc; }
+.cal-grid td.we { background: #f8f9fb; }
+.cal-grid td.hol { background: repeating-linear-gradient(135deg, #f3f5f8 0 6px, #eceff3 6px 12px); }
+.cal-d { display: flex; flex-direction: column; gap: 3px; height: 100%; border-radius: 6px; padding: 3px 4px; }
+.cal-dn { font-size: 13px; font-variant-numeric: tabular-nums; color: #334155; line-height: 1.3; }
+.cal-today .cal-dn b { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; border-radius: 11px; background: #1f5f8b; color: #fff; padding: 0 4px; }
+.cal-has { cursor: pointer; }
+.cal-has:hover .cal-d, .cal-has:focus-visible .cal-d { outline: 2px solid var(--c, #1f5f8b); outline-offset: -1px; }
+.cal-has:focus-visible { outline: none; }
+.cal-lbl { display: block; font-size: 11.5px; line-height: 1.35; padding: 1px 5px; border-radius: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
+.cal-dots { display: none; gap: 3px; }
+.cal-dots i { width: 7px; height: 7px; border-radius: 50%; display: block; }
+.cal-past { opacity: .55; }
+.cal-holname { font-size: 11px; color: #64748b; line-height: 1.3; }
+.cal-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: #475569; }
+.cal-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.cal-legend i { width: 10px; height: 10px; border-radius: 3px; display: block; }
+.cal-agenda { margin: 0; padding: 0; list-style: none; border-top: 1px solid #e5eaf0; }
+.cal-agenda li { display: grid; grid-template-columns: 74px 92px 1fr; gap: 8px; padding: 8px 2px; border-bottom: 1px solid #eef2f5; font-size: 14px; align-items: baseline; }
+.cal-agenda li > * { min-width: 0; }
+.cal-agenda .d { font-weight: 600; font-variant-numeric: tabular-nums; }
+.cal-agenda .t { color: #5b6b77; font-size: 13px; }
+.cal-agenda a { color: #1f5f8b; }
+.cal-agenda .chip { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 4px; color: #fff; margin-right: 6px; vertical-align: 1px; }
+.cal-agenda-h { margin: 4px 0 0; font-size: 15px; color: #163a56; }
+.mark-dot .cal-has .cal-d { background: none !important; }
+.mark-ring .cal-has .cal-d { background: none !important; box-shadow: inset 0 0 0 2px var(--c); }
+@container (max-width: 560px) {
+  .cal-grid td { height: 52px; padding: 2px; }
+  .cal-grid th.wk, .cal-grid td.wk { width: 30px; }
+  .cal-lbl, .cal-holname { display: none; }
+  .cal-dots { display: flex; }
+  .cal-month { min-width: 0; font-size: 15px; }
+  .cal-agenda li { grid-template-columns: 64px 1fr; }
+  .cal-agenda .t { grid-column: 2; grid-row: 2; }
+  .cal-agenda .x { grid-column: 2; grid-row: 1; }
+}
+/* Cỡ Gọn: luôn dùng ô nhỏ, chấm màu */
+.size-compact .cal-grid td { height: 48px; padding: 2px; }
+.size-compact .cal-lbl, .size-compact .cal-holname { display: none; }
+.size-compact .cal-dots { display: flex; }
+
+/* ---------- Lịch Mini ---------- */
+.mini { font-family: var(--font-ui); color: #1f2a37; display: flex; flex-direction: column; gap: 8px; }
+.mini-top { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.mini-top b { font-size: 14px; font-variant-numeric: tabular-nums; }
+.mini-top .ttl { font-size: 13px; font-weight: 600; color: #163a56; cursor: text; border-radius: 3px; }
+.mini-top .ttl[contenteditable], .cal-title[contenteditable] { outline: 2px solid #1f5f8b; outline-offset: 2px; background: #fff; }
+.mini-nav button { width: 24px; height: 24px; border: 0; border-radius: 6px; background: none; color: #475569; font-size: 15px; line-height: 1; }
+.mini-nav button:hover { background: #eef2f6; }
+.mini-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+.mini-grid .h { font-size: 10.5px; font-weight: 600; color: #8592a0; padding-bottom: 2px; }
+.md { display: flex; align-items: center; justify-content: center; aspect-ratio: 1; max-width: 100%; border-radius: 50%; font-size: 12px; font-variant-numeric: tabular-nums; color: #334155; }
+.md.out { visibility: hidden; }
+.md.we { color: #94a3b8; }
+.md.hol { color: #94a3b8; text-decoration: line-through; }
+.md.has { background: var(--c); color: #fff; font-weight: 600; cursor: pointer; }
+.md.has:hover, .md.has:focus-visible { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--c); outline: none; }
+.md.today { box-shadow: inset 0 0 0 2px #1f5f8b; font-weight: 700; color: #1f5f8b; }
+.md.has.today { box-shadow: 0 0 0 2px #fff, 0 0 0 4px #1f2a37; color: #fff; }
+.md.past { opacity: .5; }
+.mini-foot { font-size: 12.5px; color: #475569; line-height: 1.45; border-top: 1px solid #eef2f5; padding-top: 7px; }
+.mini-foot a { color: #1f5f8b; }
+
+/* Tooltip / popup */
+.tip { position: fixed; z-index: 50; max-width: 320px; padding: 10px 12px; border-radius: 8px; background: #16212e; color: #e8eef4; font-size: 13px; line-height: 1.45; box-shadow: var(--pop); pointer-events: none; }
+.tip.pinned { pointer-events: auto; background: #fff; color: var(--ink); border: 1px solid var(--rule); }
+.tip h4 { margin: 0 0 6px; font-size: 13px; color: #9fb4c7; font-weight: 600; }
+.tip.pinned h4 { color: var(--ink-3); }
+.tip .s + .s { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,.12); }
+.tip.pinned .s + .s { border-top-color: var(--rule-2); }
+.tip .k { display: inline-block; font-size: 11px; padding: 0 6px; border-radius: 4px; color: #fff; margin-right: 6px; }
+.tip .tt { font-weight: 600; }
+.tip .m { color: #b6c4d2; font-size: 12px; }
+.tip.pinned .m { color: var(--ink-3); }
+.tip .go { margin-top: 6px; font-size: 12px; color: #9fd0f5; }
+.tip.pinned .go a { color: var(--accent); }
+.toast { position: fixed; left: 50%; bottom: max(18px, env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 60; max-width: min(560px, calc(100vw - 32px)); padding: 10px 14px; border-radius: 8px; background: #1d2b3a; color: #fff; font-size: 13px; box-shadow: var(--pop); overflow-wrap: anywhere; }
+
+/* ---------- Chương trình học (tương tác) ---------- */
+.curr-cell { cursor: pointer; }
+.curr-cell:hover { box-shadow: inset 0 0 0 2px rgba(31, 95, 139, .35); }
+.curr-cell.csel { box-shadow: inset 0 0 0 2px #1f5f8b !important; }
+
+
+/* ---------- Bảng thuộc tính ---------- */
+.ptabs { display: flex; border-bottom: 1px solid var(--rule); background: var(--paper); }
+.ptabs button { flex: 1; border: 0; border-bottom: 2px solid transparent; background: none; padding: 9px 4px; font-size: 12.5px; color: var(--ink-2); margin-bottom: -1px; }
+.ptabs button[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+.pbody { flex: 1; overflow: auto; padding: 4px 0 24px; }
+.sec { border-bottom: 1px solid var(--rule-2); padding: 12px 14px; display: flex; flex-direction: column; gap: 9px; }
+.sec > h3 { margin: 0; font-size: 12.5px; }
+.sec details > summary { cursor: pointer; font-weight: 600; font-size: 12.5px; }
+.sec details[open] > summary { margin-bottom: 9px; }
+.f { display: grid; grid-template-columns: 104px 1fr; gap: 8px; align-items: center; }
+.f > label, .lab { font-size: 12px; color: var(--ink-2); }
+.fs { display: flex; flex-direction: column; gap: 4px; }
+.in, select.in, textarea.in { width: 100%; min-width: 0; height: 28px; padding: 0 8px; border: 1px solid var(--rule); border-radius: 4px; background: #fff; font-size: 12.5px; }
+textarea.in { height: auto; padding: 6px 8px; resize: vertical; line-height: 1.45; }
+textarea.mono { font-family: var(--font-mono); font-size: 12px; }
+.in[type="color"] { padding: 2px; height: 28px; }
+.in.bad { border-color: var(--danger); }
+.err { font-size: 11.5px; color: var(--danger); }
+.hint2 { font-size: 11.5px; color: var(--ink-3); line-height: 1.45; }
+.row { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.row > .in { flex: 1; }
+.chk { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border: 1px solid var(--rule); border-radius: 5px; background: #fff; font-size: 12.5px; white-space: nowrap; }
+.btn:hover { background: var(--panel-2); }
+.btn.pri { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.pri:hover { background: var(--accent-ink); }
+.btn.del { color: var(--danger); }
+.pseg { display: flex; border: 1px solid var(--rule); border-radius: 5px; overflow: hidden; background: #fff; }
+.pseg button { flex: 1; border: 0; border-right: 1px solid var(--rule); background: none; padding: 4px 6px; font-size: 12px; color: var(--ink-2); white-space: nowrap; }
+.pseg button:last-child { border-right: 0; }
+.pseg button[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+.slist { list-style: none; margin: 0; padding: 0; border: 1px solid var(--rule-2); border-radius: 6px; background: #fff; max-height: 260px; overflow: auto; }
+.slist li { display: grid; grid-template-columns: 10px 64px 1fr auto; gap: 8px; align-items: center; padding: 6px 8px; border-bottom: 1px solid var(--rule-2); font-size: 12.5px; }
+.slist li:last-child { border-bottom: 0; }
+.slist li > * { min-width: 0; }
+.slist i { width: 10px; height: 10px; border-radius: 3px; display: block; }
+.slist .d { font-variant-numeric: tabular-nums; color: var(--ink-2); }
+.slist .t { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slist .a { display: inline-flex; gap: 2px; }
+.slist .a button { border: 0; background: none; padding: 2px 5px; border-radius: 4px; font-size: 12px; color: var(--accent); }
+.slist .a button:hover { background: var(--accent-soft); }
+.slist .empty { display: block; color: var(--ink-3); }
+.form { border: 1px solid var(--accent); border-radius: 8px; padding: 10px; background: #fff; display: flex; flex-direction: column; gap: 8px; }
+.form h4 { margin: 0; font-size: 12.5px; color: var(--accent-ink); }
+.types li { grid-template-columns: 28px 1fr auto; }
+.shared { margin: 0; font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+.shared b { color: var(--ink); }
+.sizes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.sizes button { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px 6px; border: 1px solid var(--rule); border-radius: 6px; background: #fff; font-size: 11.5px; color: var(--ink-2); }
+.sizes button[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--accent); font-weight: 600; }
+.sizes svg { display: block; }
+
+/* Mã HTML Canvas */
+.code-wrap { margin-top: 18px; border-top: 1px dashed var(--rule); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.code-wrap pre { margin: 0; max-height: 260px; overflow: auto; padding: 12px; border-radius: 8px; background: #16212e; color: #dbe5ee; font: 12px/1.5 var(--font-mono); white-space: pre-wrap; word-break: break-all; }
+
+/* ---------- Đặc tả ---------- */
+.doc { background: var(--paper); border: 1px solid var(--rule); border-radius: 10px; padding: 28px clamp(16px, 4vw, 40px); display: flex; flex-direction: column; gap: 32px; }
+.doc section { display: flex; flex-direction: column; gap: 12px; }
+.doc h2 { margin: 0; font-size: 20px; color: var(--accent-ink); text-wrap: balance; }
+.doc p { margin: 0; max-width: 76ch; color: var(--ink-2); line-height: 1.6; }
+.tbl { overflow-x: auto; border: 1px solid var(--rule-2); border-radius: 8px; }
+.tbl table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 820px; }
+.tbl th, .tbl td { padding: 9px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule-2); }
+.tbl thead th { background: var(--panel-2); font-size: 12px; color: var(--ink-2); }
+.tbl tbody th { font-weight: 600; white-space: nowrap; }
+.yes { color: var(--ok); font-weight: 600; }
+.part { color: var(--warn); font-weight: 600; }
+.no { color: var(--danger); font-weight: 600; }
+.opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.opt { border: 1px solid var(--rule); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 6px; }
+.opt.rec { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
+.opt h3 { margin: 0; font-size: 14.5px; }
+.opt p { font-size: 13px; }
+.opt .lbl { font-size: 11.5px; font-weight: 600; color: var(--accent); }
+.feat { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 10px 24px; }
+.feat li { display: grid; grid-template-columns: 44px 1fr; gap: 10px; align-items: start; font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.feat li b { color: var(--ink); }
+.v { display: inline-block; text-align: center; padding: 1px 0; border-radius: 4px; font-size: 11px; font-weight: 700; background: var(--accent-soft); color: var(--accent); }
+.v.later { background: var(--panel-2); color: var(--ink-3); }
+.json { margin: 0; overflow-x: auto; padding: 14px; border-radius: 8px; background: #16212e; color: #dbe5ee; font: 12.5px/1.55 var(--font-mono); }
+.ask { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); line-height: 1.55; max-width: 84ch; }
+.ask b { color: var(--ink); }
+
+@media (max-width: 1180px) {
+  .bench { grid-template-columns: minmax(0, 1fr) 320px; }
+  .lib { display: none; }
+}
+@media (max-width: 860px) {
+  .bench { grid-template-columns: minmax(0, 1fr); }
+  .props { border-left: 0; border-top: 1px solid var(--rule); max-height: none; }
+  .stage { padding: 12px; }
+  .sheet { padding: 16px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="intro">
+    <div>
+      <h1>Nhóm Tiện ích</h1>
+      <p>Thiết kế và demo chạy thử cho nhóm thư viện "Tiện ích": Lịch học (ba cỡ), Lịch học mini cho khu vực nhỏ, Chương trình học và Tiến độ khóa học. Các tiện ích dùng chung một bộ dữ liệu khóa học. Nội dung mẫu lấy từ bảng chương trình học phần Lập trình Web API; ngày kết thúc học kỳ và tổng số buổi là giá trị ví dụ.</p>
+    </div>
+    <span class="status">Bản thiết kế để duyệt · v3</span>
+  </header>
+
+  <div class="bench">
+    <aside class="lib" aria-label="Thư viện module (mô phỏng)">
+      <div class="pane-title">Thư viện module</div>
+      <div class="lib-group"><div class="lib-head">› Bố cục <span class="n">9</span></div></div>
+      <div class="lib-group"><div class="lib-head">› Văn bản <span class="n">9</span></div></div>
+      <div class="lib-group"><div class="lib-head">› Đa phương tiện <span class="n">5</span></div></div>
+      <div class="lib-group"><div class="lib-head">› Thành phần học liệu <span class="n">11</span></div></div>
+      <div class="lib-group" id="lib-util">
+        <div class="lib-head new">⌄ Tiện ích <span class="n">4</span></div>
+      </div>
+      <div class="lib-group"><div class="lib-head">› Mẫu của tôi <span class="n">0</span></div></div>
+      <p class="lib-note">"Lịch học mini" là Lịch học đặt sẵn cỡ Mini; đổi cỡ được trong bảng thuộc tính. Nhấp một tiện ích để xem.</p>
+    </aside>
+
+    <div class="stage-col">
+      <div class="stage-bar">
+        <div class="seg" role="group" aria-label="Tiện ích" id="view-seg"></div>
+        <div class="seg" role="group" aria-label="Chế độ hiển thị">
+          <button type="button" id="m-live" aria-pressed="true">Tương tác</button>
+          <button type="button" id="m-canvas" aria-pressed="false">Khi dán vào Canvas</button>
+        </div>
+        <div class="seg" role="group" aria-label="Thiết bị">
+          <button type="button" id="d-desk" aria-pressed="true">Máy tính</button>
+          <button type="button" id="d-phone" aria-pressed="false">Điện thoại</button>
+        </div>
+      </div>
+      <div class="stage-hint" id="stage-hint"></div>
+      <div class="stage">
+        <div class="sheet" id="sheet" style="width: 820px"><div id="mount"></div></div>
+      </div>
+    </div>
+
+    <aside class="props" aria-label="Thuộc tính">
+      <div class="pane-title" id="ptitle">Thuộc tính</div>
+      <div class="ptabs" role="tablist" id="ptabs"></div>
+      <div class="pbody" id="pbody"></div>
+    </aside>
+  </div>
+
+  <article class="doc">
+    <section>
+      <h2>Mỗi tiện ích khi dán vào Canvas</h2>
+      <p>Canvas xóa JavaScript và thẻ <code>&lt;style&gt;</code> khi lưu trang. Tiện ích nào cần "biết hôm nay" sẽ bị giới hạn trong Canvas. Bấm "Khi dán vào Canvas" ở trên để xem đúng kết quả của từng tiện ích.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Tiện ích</th><th>HTML độc lập, nhúng iframe</th><th>HTML cho Canvas</th><th>Ghi chú</th></tr></thead>
+          <tbody>
+            <tr><th>Lịch học, cỡ Đầy đủ và Gọn</th><td class="yes">Đầy đủ tương tác</td><td class="part">Các tháng xếp dọc, ◀ ▶ là liên kết nhảy; tooltip mặc định</td><td>Không đánh dấu được "hôm nay".</td></tr>
+            <tr><th>Lịch học mini</th><td class="yes">Chuyển tháng, tooltip, popup khi chạm</td><td class="part">Một tháng cố định, ngày tô màu là liên kết có tooltip</td><td>Chọn tháng khi xuất.</td></tr>
+            <tr><th>Chương trình học</th><td class="yes">Có</td><td class="yes">Có, gần như y hệt</td><td>Bảng tĩnh nên hợp Canvas nhất. Bảng rộng cuộn ngang, cột "Tiết" cố định (cần thử trên Canvas).</td></tr>
+            <tr><th>Tiến độ khóa học</th><td class="yes">Tự tính theo hôm nay</td><td class="part">Đóng băng tại ngày xuất</td><td>Chế độ "Thủ công" hoặc "Theo buổi" hợp Canvas hơn; xuất lại khi cập nhật.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dữ liệu khóa học dùng chung</h2>
+      <p>Đề xuất thêm mục "Khóa học" trong Cài đặt trang: ngày bắt đầu và kết thúc học kỳ, danh sách buổi học, ngày nghỉ, loại buổi. Lịch học, Lịch học mini, Tiến độ và hàng "Ngày" của Chương trình học cùng đọc dữ liệu này, nên chỉ cần nhập một lần. Trong demo, sửa buổi học ở Lịch học thì Lịch học mini và Tiến độ cập nhật theo. Mỗi module vẫn có thể chọn "Dùng dữ liệu riêng" khi cần.</p>
+    </section>
+
+    <section>
+      <h2>Chức năng đề xuất</h2>
+      <ul class="feat">
+        <li><span class="v">v1</span><div><b>Lịch học ba cỡ.</b> Đầy đủ (nhãn trong ô, cột tuần, danh sách), Gọn (chấm màu), Mini (vòng tròn tô màu, không chữ, cho cột bên); tiêu đề sửa được và ẩn được.</div></li>
+        <li><span class="v">v1</span><div><b>Chương trình học dán từ Excel.</b> Sao chép bảng từ Excel hoặc Google Sheets rồi dán; tự nhận hàng "Ngày".</div></li>
+        <li><span class="v">v1</span><div><b>Ô nhấn mạnh.</b> Viền đỏ cho Nghiệm thu, Checkpoint, Kiểm tra (như ảnh mẫu); mỗi ô có thể gắn liên kết.</div></li>
+        <li><span class="v">v1</span><div><b>Chương trình học dạng danh sách.</b> Mỗi buổi thành một khối, đọc tốt trên điện thoại thay cho bảng rộng.</div></li>
+        <li><span class="v">v1</span><div><b>Tiến độ ba cách tính.</b> Theo ngày, theo số buổi đã học, hoặc nhập tay; dạng thanh hoặc ô theo tuần; hiện mốc Checkpoint.</div></li>
+        <li><span class="v later">Sau</span><div><b>Tô cột buổi đang học.</b> Bản có JavaScript tự làm nổi cột của buổi gần nhất trong Chương trình học.</div></li>
+        <li><span class="v later">Sau</span><div><b>Nhiều lớp học phần.</b> Một dự án có nhiều bộ dữ liệu khóa học (23DTH1, 23DTH2...).</div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Chuyển tháng của Lịch học trong Canvas</h2>
+      <div class="opts">
+        <div class="opt rec"><span class="lbl">Mặc định cho cỡ Đầy đủ, Gọn</span><h3>Xếp các tháng</h3><p>Mọi tháng có buổi học xếp dọc, ◀ ▶ là liên kết nhảy tới tháng trước, sau. Không cần máy chủ.</p></div>
+        <div class="opt rec"><span class="lbl">Mặc định cho cỡ Mini</span><h3>Một tháng</h3><p>Chọn tháng khi xuất. Ngày tô màu là liên kết tới bài giảng.</p></div>
+        <div class="opt"><span class="lbl">Tùy chọn nâng cao</span><h3>Nhúng iframe</h3><p>Đặt bản HTML độc lập lên máy chủ khoa hoặc GitHub Pages rồi nhúng. Đủ tương tác, kể cả tiến độ và "hôm nay" tự cập nhật.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dữ liệu lưu trong dự án</h2>
+<pre class="json">// Cài đặt trang → Khóa học (dùng chung)
+"course": {
+  "start": "2026-08-26", "end": "2026-12-16", "totalSessions": 15,
+  "types": [...], "holidays": [...], "sessions": [...]
+}
+
+// Module Lịch học
+{ "type": "schedule", "props": { "size": "mini",          // "full" | "compact" | "mini"
+  "source": "course", "month": "auto", "showTitle": true, "title": "Lịch học", ... } }
+
+// Module Chương trình học
+{ "type": "curriculum", "props": {
+  "layout": "grid",                                       // "grid" | "list"
+  "rowHeader": "Tiết", "dateRowLabel": "Ngày", "uppercaseHeads": true, "tintColumns": true,
+  "rows": ["Tiết 7", "Tiết 8", ...],
+  "cols": [{ "title": "Buổi 1", "date": "26/08", "url": "" }, ...],
+  "cells": [[{ "text": "Mục tiêu, nội dung học phần", "emphasis": false, "url": "" }, ...], ...] } }
+
+// Module Tiến độ khóa học
+{ "type": "progress", "props": { "basis": "date", "manual": 50, "look": "bar", "showMilestones": true } }</pre>
+    </section>
+
+    <section>
+      <h2>Cần chốt trước khi lập trình</h2>
+      <ol class="ask">
+        <li><b>Dữ liệu khóa học dùng chung</b> trong Cài đặt trang như mô tả ở trên?</li>
+        <li><b>Cỡ Mini của Lịch học:</b> vòng tròn tô màu, không chữ, tiêu đề sửa và ẩn được, có dòng "Buổi tới" (tắt được) như demo?</li>
+        <li><b>Chương trình học:</b> màu cột lấy từ bảng màu của công cụ (như demo) hay cho chọn màu từng cột như ảnh gốc? Có cần dạng danh sách cho điện thoại?</li>
+        <li><b>Tiến độ trong Canvas</b> đóng băng tại ngày xuất. Chấp nhận, hay mặc định dùng cách tính "Theo buổi đã học" (thầy xuất lại sau mỗi buổi)?</li>
+      </ol>
+    </section>
+  </article>
+</div>
+
+<div class="tip" id="tip" hidden></div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(() => {
+  'use strict';
+  /* ================= Tiện ích ngày tháng (giờ địa phương) ================= */
+  const pad = (n) => String(n).padStart(2, '0');
+  const keyOf = (y, m, d) => `${y}-${pad(m)}-${pad(d)}`;
+  const parse = (k) => k.split('-').map(Number);
+  const dnum = (k) => { const [y, m, d] = parse(k); return Date.UTC(y, m - 1, d) / 864e5; };
+  const fromDnum = (n) => { const dt = new Date(n * 864e5); return keyOf(dt.getUTCFullYear(), dt.getUTCMonth() + 1, dt.getUTCDate()); };
+  const addDays = (k, n) => fromDnum(dnum(k) + n);
+  const wdMon0 = (k) => (new Date(dnum(k) * 864e5).getUTCDay() + 6) % 7;
+  const WD = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+  const WDL = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
+  const short = (k) => { const [, m, d] = parse(k); return `${WD[wdMon0(k)]} ${pad(d)}/${pad(m)}`; };
+  const long = (k) => { const [y, m, d] = parse(k); return `${WDL[wdMon0(k)]}, ${pad(d)}/${pad(m)}/${y}`; };
+  const now = new Date();
+  const TODAY = keyOf(now.getFullYear(), now.getMonth() + 1, now.getDate());
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const mix = (hex, t) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255; const f = (c) => Math.round(c * t + 255 * (1 - t)).toString(16).padStart(2, '0'); return `#${f(r)}${f(g)}${f(b)}`; };
+  let uidN = 0; const uid = () => `s${Date.now().toString(36)}${(uidN++).toString(36)}`;
+  const FONT = '"Segoe UI", Roboto, "Helvetica Neue", Arial, Tahoma, "Liberation Sans", sans-serif';
+  const $ = (id) => document.getElementById(id);
+  const val = (id) => $(id)?.value ?? '';
+
+  /* ================= Dữ liệu khóa học dùng chung ================= */
+  const BASE = 'https://lms.example.edu.vn/courses/1234';
+  const C = {
+    start: '2026-08-26', end: '2026-12-16', totalSessions: 15, semesterStart: '2026-08-26',
+    types: [
+      { id: 'bh', name: 'Buổi học', color: '#1f5f8b' },
+      { id: 'nt', name: 'Nghiệm thu', color: '#b42318' },
+      { id: 'hn', name: 'Hạn nộp', color: '#a16207' },
+    ],
+    holidays: [{ date: '2026-09-02', name: 'Quốc khánh' }],
+    sessions: [],
+  };
+  const CURR_COLS = ['26/08', '09/09', '16/09', '23/09', '30/09', '07/10', '14/10'];
+  const BUOI = [
+    'Mục tiêu học phần, Web API và REST', 'Giao thức HTTP, request và response', 'Controller, routing và model binding',
+    'DTO, phân trang, lọc và sắp xếp', 'Entity Framework Core và SQLite', 'LINQ, CRUD và quan hệ bảng', 'Tải tệp qua Web API',
+  ];
+  const LABS = ['Lab 1 - Cài môi trường & tạo dự án đầu tiên', 'Lab 2 - Kiểm thử endpoint bằng Postman', 'Lab 3 - CRUD đầy đủ cho tài nguyên Sách', 'Lab 4 - Phân trang, lọc & DTO', 'Lab 5 - Chuyển sang CSDL SQLite', 'Lab 6 - CRUD thực tế qua EF Core', 'Lab 7 - Tải lên ảnh bìa sách'];
+  CURR_COLS.forEach((dm, i) => {
+    const [d, m] = dm.split('/').map(Number);
+    C.sessions.push({ id: uid(), date: keyOf(2026, m, d), time: 'Tiết 7-12', type: 'bh', room: '', title: `Buổi ${i + 1}: ${BUOI[i]}`, label: `Buổi ${i + 1}`, tip: LABS[i], url: `${BASE}/pages/buoi-${pad(i + 1)}`, target: 'auto' });
+  });
+  C.sessions.push(
+    { id: uid(), date: '2026-09-16', time: 'Tiết 12', type: 'nt', room: '', title: 'Nghiệm thu Checkpoint 1', label: 'Checkpoint 1', tip: 'Nghiệm thu Lab 1 đến Lab 3', url: `${BASE}/assignments/checkpoint-1`, target: 'auto' },
+    { id: uid(), date: '2026-09-30', time: 'Tiết 12', type: 'nt', room: '', title: 'Nghiệm thu Checkpoint 2', label: 'Checkpoint 2', tip: 'Nghiệm thu Lab 4 và Lab 5', url: `${BASE}/assignments/checkpoint-2`, target: 'auto' },
+    { id: uid(), date: '2026-11-01', time: '23:59', type: 'hn', room: '', title: 'Hạn nộp Lab 7 (ví dụ)', label: 'Hạn nộp', tip: 'Nộp mã nguồn dạng .zip', url: `${BASE}/assignments/lab-7`, target: 'auto' },
+  );
+  const holidayMap = () => new Map(C.holidays.map((h) => [h.date, h.name]));
+  const typeOf = (id) => C.types.find((t) => t.id === id) ?? { id, name: 'Khác', color: '#64748b' };
+  const sorted = () => [...C.sessions].sort((a, b) => dnum(a.date) - dnum(b.date) || String(a.time).localeCompare(String(b.time)));
+  const byDate = () => { const m = new Map(); for (const s of sorted()) { if (!m.has(s.date)) m.set(s.date, []); m.get(s.date).push(s); } return m; };
+  const labelOf = (s) => { if (s.label) return s.label; const i = s.title.indexOf(':'); return i > 0 && i <= 16 ? s.title.slice(0, i) : s.title.slice(0, 16); };
+  const isInternal = (url) => url.startsWith('/') || url.startsWith(BASE.split('/courses')[0]);
+  const targetOf = (s) => (s.target === 'auto' ? (isInternal(s.url) ? 'same' : 'new') : s.target);
+  const monthsWithSessions = () => [...new Set(sorted().map((s) => s.date.slice(0, 7)))];
+  const monthLabel = (ym) => { const [y, m] = ym.split('-').map(Number); return `Tháng ${m}, ${y}`; };
+  const shiftMonth = (ym, d) => { let [y, m] = ym.split('-').map(Number); m += d; while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; } return `${y}-${pad(m)}`; };
+  const primaryOf = (list) => list.find((s) => s.type === 'nt') ?? list.find((s) => s.type === 'hn') ?? list[0];
+  const nextSession = () => sorted().find((s) => dnum(s.date) >= dnum(TODAY));
+  function initialMonth() {
+    const ms = monthsWithSessions(); const t = TODAY.slice(0, 7);
+    if (!ms.length) return t;
+    return t >= ms[0] && t <= ms[ms.length - 1] ? t : ms[0];
+  }
+  function repeatDates(weekday, from, to, skipHol) {
+    const hol = holidayMap(), out = [];
+    if (!from || !to || dnum(to) < dnum(from)) return out;
+    let k = addDays(from, (weekday - wdMon0(from) + 7) % 7);
+    while (dnum(k) <= dnum(to) && out.length < 120) { if (!(skipHol && hol.has(k))) out.push(k); k = addDays(k, 7); }
+    return out;
+  }
+  function weekNoFor(k) {
+    const semMon = addDays(C.semesterStart, -wdMon0(C.semesterStart));
+    const w = Math.floor((dnum(addDays(k, -wdMon0(k))) - dnum(semMon)) / 7) + 1;
+    return w >= 1 && w <= 22 ? w : '';
+  }
+  function monthGrid(ym, weekStart) {
+    const [y, m] = ym.split('-').map(Number);
+    const first = keyOf(y, m, 1), days = new Date(y, m, 0).getDate();
+    const off = weekStart === 'mon' ? wdMon0(first) : (wdMon0(first) + 1) % 7;
+    const rows = []; let cur = addDays(first, -off);
+    for (let r = 0; r < Math.ceil((off + days) / 7); r++) { const row = []; for (let c = 0; c < 7; c++) { row.push({ key: cur, inMonth: cur.slice(0, 7) === ym }); cur = addDays(cur, 1); } rows.push(row); }
+    return rows;
+  }
+  const heads = (ws) => (ws === 'mon' ? WD : ['CN', ...WD.slice(0, 6)]);
+
+  /* ================= Các module (mỗi module có cài đặt riêng) ================= */
+  const schedDefaults = () => ({
+    title: 'Lịch học - Lập trình Web API', showTitle: true, weekStart: 'mon', showWeekNo: true, markStyle: 'fill', showLabels: true, dimPast: true,
+    showAgenda: 'month', showLegend: true, month: initialMonth(),
+    style: { radius: 12, padding: 20, borderWidth: 1, borderColor: '#e2e8f0', bg: '#ffffff', headerColor: '#163a56' },
+  });
+  const M = {
+    sched: { kind: 'sched', name: 'Lịch học', size: 'full', ...schedDefaults() },
+    mini: { kind: 'sched', name: 'Lịch học mini', size: 'mini', ...schedDefaults(), title: 'Lịch học', showNext: true, style: { radius: 12, padding: 14, borderWidth: 1, borderColor: '#e2e8f0', bg: '#ffffff', headerColor: '#163a56' } },
+    curr: {
+      kind: 'curr', name: 'Chương trình học', layout: 'grid', rowHeader: 'Tiết', dateRowLabel: 'Ngày', upper: true, tint: true, sticky: true,
+      headBg: '#163a56', subBg: '#24557c', colWidth: 180,
+      rows: ['Tiết 7', 'Tiết 8', 'Tiết 9', 'Tiết 10', 'Tiết 11', 'Tiết 12'],
+      cols: CURR_COLS.map((d, i) => ({ title: `Buổi ${i + 1}`, date: d, url: `${BASE}/pages/buoi-${pad(i + 1)}` })),
+      cells: [
+        ['Mục tiêu, nội dung học phần', 'Ôn Chương 1', 'Ôn Chương 2', 'Ôn Chương 3', 'Ôn Chương 4', 'Ôn Chương 5', 'Ôn Chương 6'],
+        ['Yêu cầu & nội quy lớp', '2.1. Giao thức HTTP: phương thức & mã trạng thái', '3.1. Controller & attribute routing', '4.1. DTO & tách khỏi entity', '5.1. ORM & Entity Framework Core', '6.1. Truy vấn dữ liệu với LINQ', '7.1. Tải tệp lên qua Web API'],
+        ['1.1. Web Service & Web API', '2.2. Cấu trúc request & response', '3.2. Model binding: route, query, body', '4.2. Phân trang dữ liệu', '5.2. DbContext & mô hình dữ liệu', '6.2. Thêm, sửa, xoá bản ghi', '7.2. Kiểm tra & lưu trữ tệp'],
+        ['1.2. Kiến trúc REST & nguyên tắc thiết kế', '2.3. Kiểm thử với Swagger & Postman', '3.3. Mã trạng thái trong phản hồi', '4.3. Lọc & sắp xếp kết quả', '5.3. Migration & kết nối SQLite', '6.3. Quan hệ giữa các bảng & Include', '7.3. Trả tệp về cho client'],
+        LABS,
+        ['Củng cố Chương 1 · giao Lab 1', 'Củng cố Chương 2 · trắc nghiệm', 'NGHIỆM THU Checkpoint 1', 'Củng cố Chương 4 · trắc nghiệm', 'NGHIỆM THU Checkpoint 2', 'Củng cố Chương 6 · trắc nghiệm', 'Củng cố Chương 7 · trắc nghiệm'],
+      ].map((row) => row.map((text) => ({ text, em: /^NGHIỆM THU/.test(text), url: '' }))),
+    },
+    prog: { kind: 'prog', name: 'Tiến độ khóa học', size: 'normal', title: 'Tiến độ học phần', basis: 'date', manual: 50, look: 'weeks', showMilestones: true, color: '#1f5f8b' },
+    progS: { kind: 'prog', name: 'Tiến độ (cột bên)', size: 'small', title: 'Tiến độ học phần', basis: 'session', manual: 50, look: 'bar', showMilestones: true, color: '#1f5f8b' },
+  };
+  const VIEWS = [
+    { id: 'sched', label: 'Lịch học', insts: ['sched'], icon: 'cal' },
+    { id: 'page', label: 'Lịch học mini', insts: ['mini', 'progS'], icon: 'mini' },
+    { id: 'curr', label: 'Chương trình học', insts: ['curr'], icon: 'grid' },
+    { id: 'prog', label: 'Tiến độ khóa học', insts: ['prog'], icon: 'prog' },
+  ];
+  const UI = { view: 'sched', sel: 'sched', mode: 'live', device: 'desk', tab: 'sessions', editing: null, err: {}, cell: null };
+
+  /* ================= LỊCH HỌC: bản tương tác ================= */
+  function renderSchedLive(id) {
+    const S = M[id];
+    if (S.size === 'mini') return renderMiniLive(id);
+    const map = byDate(), hol = holidayMap(), st = S.style;
+    let rows = '';
+    for (const row of monthGrid(S.month, S.weekStart)) {
+      rows += '<tr>';
+      if (S.showWeekNo) { const ref = row.find((c) => wdMon0(c.key) === 0)?.key ?? row[0].key; rows += `<td class="wk">${weekNoFor(ref)}</td>`; }
+      for (const c of row) {
+        if (!c.inMonth) { rows += '<td class="out"></td>'; continue; }
+        const [, , d] = parse(c.key); const wd = wdMon0(c.key);
+        const list = map.get(c.key) ?? []; const h = hol.get(c.key);
+        const p = list.length ? primaryOf(list) : null; const col = p ? typeOf(p.type).color : '#1f5f8b';
+        const cls = [wd >= 5 ? 'we' : '', h ? 'hol' : '', list.length ? 'cal-has' : '', c.key === TODAY ? 'cal-today' : '', S.dimPast && list.length && dnum(c.key) < dnum(TODAY) ? 'cal-past' : ''].filter(Boolean).join(' ');
+        const lbls = S.showLabels ? list.slice(0, 2).map((s) => `<span class="cal-lbl" style="background:${typeOf(s.type).color}">${esc(labelOf(s))}</span>`).join('') + (list.length > 2 ? `<span class="cal-holname">+${list.length - 2}</span>` : '') : '';
+        const dots = list.length ? `<span class="cal-dots">${list.map((s) => `<i style="background:${typeOf(s.type).color}"></i>`).join('')}</span>` : '';
+        const aria = list.length ? ` tabindex="0" role="button" aria-label="${esc(long(c.key))}: ${esc(list.map((s) => s.title).join('; '))}"` : '';
+        rows += `<td class="${cls}" data-date="${c.key}"${aria} style="--c:${col}"><div class="cal-d" style="${list.length ? `background:${mix(col, 0.14)}` : ''}"><div class="cal-dn"><b>${d}</b></div>${lbls}${dots}${h ? `<span class="cal-holname">${esc(h)}</span>` : ''}</div></td>`;
+      }
+      rows += '</tr>';
+    }
+    const ag = S.showAgenda === 'none' ? [] : sorted().filter((s) => S.showAgenda === 'all' || s.date.slice(0, 7) === S.month);
+    const agenda = ag.length ? `<h4 class="cal-agenda-h">${S.showAgenda === 'all' ? 'Tất cả buổi học' : `Buổi học trong ${monthLabel(S.month).toLowerCase()}`}</h4><ul class="cal-agenda">${ag.map((s) => `<li class="${S.dimPast && dnum(s.date) < dnum(TODAY) ? 'cal-past' : ''}"><span class="d">${short(s.date)}</span><span class="t">${esc(s.time)}</span><span class="x"><span class="chip" style="background:${typeOf(s.type).color}">${esc(typeOf(s.type).name)}</span><a href="${esc(s.url)}" data-sid="${s.id}">${esc(s.title)}</a></span></li>`).join('')}</ul>` : '';
+    const legend = S.showLegend ? `<div class="cal-legend">${C.types.map((t) => `<span><i style="background:${t.color}"></i>${esc(t.name)}</span>`).join('')}${C.holidays.length ? '<span><i style="background:repeating-linear-gradient(135deg,#e2e7ee 0 3px,#cfd6df 3px 6px)"></i>Ngày nghỉ</span>' : ''}</div>` : '';
+    return `<div class="cal mark-${S.markStyle} ${S.size === 'compact' ? 'size-compact' : ''}"><div class="cal-box" style="background:${st.bg};border:${st.borderWidth}px solid ${st.borderColor};border-radius:${st.radius}px;padding:${st.padding}px">
+      <div class="cal-top">${S.showTitle ? `<h3 class="cal-title" style="color:${st.headerColor}">${esc(S.title)}</h3>` : ''}
+        <div class="cal-nav"><button type="button" class="cal-btn" data-nav="-1" aria-label="Tháng trước">◀</button><span class="cal-month" aria-live="polite">${monthLabel(S.month)}</span><button type="button" class="cal-btn" data-nav="1" aria-label="Tháng sau">▶</button><button type="button" class="cal-btn" data-nav="0">Hôm nay</button></div></div>
+      <table class="cal-grid"><thead><tr>${S.showWeekNo && S.size !== 'compact' ? '<th class="wk">Tuần</th>' : S.showWeekNo ? '<th class="wk">T</th>' : ''}${heads(S.weekStart).map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>
+      ${legend}${agenda}</div></div>`;
+  }
+
+  function renderMiniLive(id) {
+    const S = M[id], st = S.style, map = byDate(), hol = holidayMap();
+    const [y, m] = S.month.split('-').map(Number);
+    let cells = heads(S.weekStart).map((h) => `<span class="h">${h}</span>`).join('');
+    for (const row of monthGrid(S.month, S.weekStart)) for (const c of row) {
+      if (!c.inMonth) { cells += '<span class="md out"></span>'; continue; }
+      const [, , d] = parse(c.key); const list = map.get(c.key) ?? []; const p = list.length ? primaryOf(list) : null;
+      const cls = ['md', wdMon0(c.key) >= 5 ? 'we' : '', hol.has(c.key) ? 'hol' : '', p ? 'has' : '', c.key === TODAY ? 'today' : '', S.dimPast && p && dnum(c.key) < dnum(TODAY) ? 'past' : ''].filter(Boolean).join(' ');
+      const aria = p ? ` tabindex="0" role="button" aria-label="${esc(long(c.key))}: ${esc(list.map((s) => s.title).join('; '))}"` : hol.has(c.key) ? ` title="${esc(hol.get(c.key))}"` : '';
+      cells += `<span class="${cls}" data-date="${c.key}"${aria} style="--c:${p ? typeOf(p.type).color : 'transparent'}">${d}</span>`;
+    }
+    const nx = nextSession();
+    const foot = S.showNext ? `<div class="mini-foot">${nx ? `Buổi tới: <b>${short(nx.date)}</b> · <a href="${esc(nx.url)}" data-sid="${nx.id}">${esc(labelOf(nx))}</a>` : 'Không còn buổi học sắp tới.'}</div>` : '';
+    return `<div class="mini" style="background:${st.bg};border:${st.borderWidth}px solid ${st.borderColor};border-radius:${st.radius}px;padding:${st.padding}px">
+      ${S.showTitle ? `<div class="mini-top"><span class="ttl" style="color:${st.headerColor}">${esc(S.title)}</span></div>` : ''}
+      <div class="mini-top"><b>Tháng ${m}/${y}</b><span class="mini-nav"><button type="button" data-nav="-1" aria-label="Tháng trước">‹</button><button type="button" data-nav="1" aria-label="Tháng sau">›</button></span></div>
+      <div class="mini-grid">${cells}</div>${foot}</div>`;
+  }
+
+  /* ================= LỊCH HỌC: HTML cho Canvas ================= */
+  function schedCanvas(id) {
+    const S = M[id], map = byDate(), hol = holidayMap(), st = S.style;
+    if (S.size === 'mini') return miniCanvas(id);
+    const months = monthsWithSessions(); const list = months.length ? months : [S.month];
+    const cellB = 'border: 1px solid #e5eaf0';
+    const small = S.size === 'compact';
+    let html = `<div style="font-family: ${esc(FONT)}; color: #1f2a37; background-color: ${st.bg}; border: ${st.borderWidth}px solid ${st.borderColor}; border-radius: ${st.radius}px; padding: ${st.padding}px">\n`;
+    if (S.showTitle) html += `  <h3 style="margin: 0 0 12px; font-size: 20px; line-height: 1.3; color: ${st.headerColor}">${esc(S.title)}</h3>\n`;
+    list.forEach((ym, i) => {
+      const prev = i > 0 ? `<a href="#lich-${list[i - 1]}" style="color: #1f5f8b; text-decoration: none">◀ Tháng ${Number(list[i - 1].slice(5))}</a>` : '<span></span>';
+      const next = i < list.length - 1 ? `<a href="#lich-${list[i + 1]}" style="color: #1f5f8b; text-decoration: none">Tháng ${Number(list[i + 1].slice(5))} ▶</a>` : '<span></span>';
+      html += `  <div id="lich-${ym}" style="margin: ${i ? '28px' : '0'} 0 0">\n    <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 14px">${prev}<strong style="font-size: 17px">${monthLabel(ym)}</strong>${next}</div>\n`;
+      html += `    <table style="width: 100%; border-collapse: collapse; table-layout: fixed">\n      <thead><tr>${S.showWeekNo ? '<th style="width: 40px; padding: 6px 0; font-size: 12px; color: #5b6b77">Tuần</th>' : ''}${heads(S.weekStart).map((h) => `<th style="padding: 6px 0; font-size: 13px; color: #5b6b77; text-align: center">${h}</th>`).join('')}</tr></thead>\n      <tbody>\n`;
+      for (const row of monthGrid(ym, S.weekStart)) {
+        html += '        <tr>';
+        if (S.showWeekNo) { const ref = row.find((c) => wdMon0(c.key) === 0)?.key ?? row[0].key; html += `<td style="text-align: center; font-size: 12px; color: #7b8896">${weekNoFor(ref)}</td>`; }
+        for (const c of row) {
+          if (!c.inMonth) { html += `<td style="${cellB}; background-color: #fafbfc"></td>`; continue; }
+          const [, , d] = parse(c.key); const ss = map.get(c.key) ?? []; const h = hol.get(c.key); const p = ss.length ? primaryOf(ss) : null;
+          const bg = p ? mix(typeOf(p.type).color, small ? 1 : 0.14) : h ? '#eef1f5' : wdMon0(c.key) >= 5 ? '#f8f9fb' : '#ffffff';
+          let inner;
+          if (small && p) {
+            const tip = ss.map((s) => `${s.title} (${s.time})`).join('\n');
+            inner = `<a href="${esc(p.url)}" title="${esc(tip).replace(/\n/g, '&#10;')}" style="display: block; color: #ffffff; text-decoration: none; font-size: 13px">${d}</a>`;
+          } else {
+            inner = `<span style="font-size: 13px; color: #334155">${d}</span>`;
+            for (const s of ss) {
+              const tip = `${s.title}\n${s.time}${s.tip ? `\n${s.tip}` : ''}`;
+              inner += `<a href="${esc(s.url)}"${targetOf(s) === 'new' ? ' target="_blank"' : ''} title="${esc(tip).replace(/\n/g, '&#10;')}" style="display: block; margin-top: 2px; padding: 1px 4px; border-radius: 4px; background-color: ${typeOf(s.type).color}; color: #ffffff; font-size: 11px; line-height: 1.35; text-decoration: none; white-space: nowrap; overflow: hidden">${esc(labelOf(s))}</a>`;
+            }
+            if (h) inner += `<span style="display: block; font-size: 11px; color: #64748b">${esc(h)}</span>`;
+          }
+          html += `<td style="${cellB}; height: ${small ? 40 : 64}px; vertical-align: top; padding: 4px; background-color: ${bg}">${inner}</td>`;
+        }
+        html += '</tr>\n';
+      }
+      html += '      </tbody>\n    </table>\n';
+      const items = sorted().filter((s) => s.date.slice(0, 7) === ym);
+      if (items.length && S.showAgenda !== 'none') html += `    <ul style="list-style: none; margin: 10px 0 0; padding: 0; font-size: 14px">\n${items.map((s) => `      <li style="padding: 5px 0; border-bottom: 1px solid #eef2f5"><strong>${short(s.date)}</strong> <span style="color: #5b6b77">${esc(s.time)}</span> · <a href="${esc(s.url)}"${targetOf(s) === 'new' ? ' target="_blank"' : ''} style="color: #1f5f8b">${esc(s.title)}</a></li>`).join('\n')}\n    </ul>\n`;
+      html += '  </div>\n';
+    });
+    return html + '</div>';
+  }
+
+  function miniCanvas(id) {
+    const S = M[id], st = S.style, map = byDate(), hol = holidayMap();
+    const [y, m] = S.month.split('-').map(Number);
+    let html = `<div style="font-family: ${esc(FONT)}; color: #1f2a37; background-color: ${st.bg}; border: ${st.borderWidth}px solid ${st.borderColor}; border-radius: ${st.radius}px; padding: ${st.padding}px">\n`;
+    if (S.showTitle) html += `  <div style="font-size: 13px; color: ${st.headerColor}"><strong>${esc(S.title)}</strong></div>\n`;
+    html += `  <div style="font-size: 14px; margin: 4px 0 6px"><strong>Tháng ${m}/${y}</strong></div>\n`;
+    html += `  <table style="width: 100%; border-collapse: separate; border-spacing: 2px; table-layout: fixed; text-align: center">\n    <tr>${heads(S.weekStart).map((h) => `<th style="font-size: 11px; color: #8592a0; padding: 0 0 2px">${h}</th>`).join('')}</tr>\n`;
+    for (const row of monthGrid(S.month, S.weekStart)) {
+      html += '    <tr>';
+      for (const c of row) {
+        if (!c.inMonth) { html += '<td></td>'; continue; }
+        const [, , d] = parse(c.key); const ss = map.get(c.key) ?? []; const p = ss.length ? primaryOf(ss) : null;
+        if (p) {
+          const tip = `${long(c.key)}\n${ss.map((s) => `${s.title} (${s.time})`).join('\n')}`;
+          html += `<td style="padding: 0"><a href="${esc(p.url)}"${targetOf(p) === 'new' ? ' target="_blank"' : ''} title="${esc(tip).replace(/\n/g, '&#10;')}" style="display: block; height: 28px; line-height: 28px; border-radius: 50%; background-color: ${typeOf(p.type).color}; color: #ffffff; font-size: 12px; text-decoration: none"><strong>${d}</strong></a></td>`;
+        } else {
+          const h = hol.get(c.key);
+          html += `<td style="height: 28px; font-size: 12px; color: ${h || wdMon0(c.key) >= 5 ? '#94a3b8' : '#334155'}"${h ? ` title="${esc(h)}"` : ''}>${h ? `<del>${d}</del>` : d}</td>`;
+        }
+      }
+      html += '</tr>\n';
+    }
+    html += '  </table>\n';
+    return html + '</div>';
+  }
+
+  /* ================= CHƯƠNG TRÌNH HỌC (cùng một mã HTML cho mọi chế độ) ================= */
+  const TINTS = ['#ffffff', '#eef7f1', '#fdf8e4', '#f3f0fb', '#ecf3fa', '#fdf2e6', '#fbeef3'];
+  function currHtml(live) {
+    const P = M.curr;
+    const up = (t) => (P.upper ? t.toLocaleUpperCase('vi-VN') : t);
+    const cellStyle = (ci, cell) => cell.em
+      ? 'background-color: #fdf1f0; color: #b42318; border: 2px solid #b42318'
+      : `background-color: ${P.tint ? TINTS[ci % TINTS.length] : '#ffffff'}; color: #1f2a37; border: 1px solid #dbe3ec`;
+    const cellInner = (cell) => {
+      const t = esc(cell.text).replace(/\n/g, '<br>');
+      return cell.url ? `<a href="${esc(cell.url)}" style="color: inherit">${t}</a>` : t;
+    };
+    const sel = (r, c) => (live && UI.cell && UI.cell.r === r && UI.cell.c === c ? ' csel' : '');
+    const attrs = (r, c) => (live ? ` class="curr-cell${sel(r, c)}" data-r="${r}" data-c="${c}"` : '');
+    if (P.layout === 'list') {
+      let html = `<div style="font-family: ${esc(FONT)}; display: flex; flex-direction: column; gap: 14px">\n`;
+      P.cols.forEach((col, c) => {
+        const head = `${esc(col.title)}${col.date ? ` · ${esc(col.date)}` : ''}`;
+        html += `  <div style="border: 1px solid #dbe3ec; border-radius: 10px; overflow: hidden">\n    <div${attrs(-1, c)} style="background-color: ${P.headBg}; color: #ffffff; padding: 10px 14px; font-size: 16px"><strong>${col.url ? `<a href="${esc(col.url)}" style="color: #ffffff">${head}</a>` : head}</strong></div>\n`;
+        html += `    <table style="width: 100%; border-collapse: collapse; font-size: 15px">\n`;
+        P.rows.forEach((rl, r) => {
+          const cell = P.cells[r]?.[c] ?? { text: '' };
+          html += `      <tr><th style="width: 84px; padding: 8px 10px; text-align: left; font-size: 13px; color: #1f5f8b; background-color: #f3f6fa; border-top: 1px solid #e5eaf0; vertical-align: top">${esc(rl)}</th><td${attrs(r, c)} style="padding: 8px 12px; vertical-align: top; ${cellStyle(c, cell).replace('border: 1px solid #dbe3ec', 'border-top: 1px solid #e5eaf0')}">${cellInner(cell)}</td></tr>\n`;
+        });
+        html += '    </table>\n  </div>\n';
+      });
+      return html + '</div>';
+    }
+    const w = P.colWidth;
+    const stick = P.sticky ? '; position: sticky; left: 0' : '';
+    let html = `<div style="font-family: ${esc(FONT)}; overflow-x: auto; border: 1px solid #dbe3ec; border-radius: 10px">\n`;
+    html += `  <table style="border-collapse: collapse; width: 100%; min-width: ${96 + P.cols.length * w}px; table-layout: fixed; font-size: 15px; line-height: 1.45">\n    <thead>\n`;
+    html += `      <tr><th style="width: 96px; padding: 12px 8px; background-color: ${P.headBg}; color: #ffffff; font-size: 14px${stick}">${esc(up(P.rowHeader))}</th>${P.cols.map((col, c) => `<th${attrs(-1, c)} style="width: ${w}px; padding: 12px 8px; background-color: ${P.headBg}; color: #ffffff; font-size: 14px; text-align: center">${col.url ? `<a href="${esc(col.url)}" style="color: #ffffff; text-decoration: none">${esc(up(col.title))}</a>` : esc(up(col.title))}</th>`).join('')}</tr>\n`;
+    if (P.cols.some((c) => c.date)) html += `      <tr><th style="padding: 8px; background-color: ${P.subBg}; color: #dfe9f3; font-size: 13px${stick}">${esc(up(P.dateRowLabel))}</th>${P.cols.map((col) => `<th style="padding: 8px; background-color: ${P.subBg}; color: #ffffff; font-size: 13px; text-align: center">${esc(col.date)}</th>`).join('')}</tr>\n`;
+    html += '    </thead>\n    <tbody>\n';
+    P.rows.forEach((rl, r) => {
+      html += `      <tr><th style="padding: 10px 8px; background-color: #f3f6fa; color: #1f5f8b; font-size: 14px; border: 1px solid #dbe3ec; text-align: center${stick}">${esc(rl)}</th>`;
+      P.cols.forEach((_, c) => {
+        const cell = P.cells[r]?.[c] ?? { text: '' };
+        html += `<td${attrs(r, c)} style="padding: 10px 12px; vertical-align: top; ${cellStyle(c, cell)}">${cellInner(cell)}</td>`;
+      });
+      html += '</tr>\n';
+    });
+    return html + '    </tbody>\n  </table>\n</div>';
+  }
+
+  /* ================= TIẾN ĐỘ KHÓA HỌC ================= */
+  function progValue(P, at = TODAY) {
+    if (P.basis === 'manual') return { pct: Math.max(0, Math.min(100, Number(P.manual) || 0)), text: `${Math.round(P.manual)}%` };
+    if (P.basis === 'session') {
+      const done = C.sessions.filter((s) => s.type === 'bh' && dnum(s.date) < dnum(at)).length;
+      const total = Math.max(done, C.totalSessions || 1);
+      return { pct: Math.round((done / total) * 100), text: `Đã học ${done}/${total} buổi` };
+    }
+    const span = dnum(C.end) - dnum(C.start);
+    const pct = Math.round(Math.max(0, Math.min(1, (dnum(at) - dnum(C.start)) / span)) * 100);
+    const wk = weekNoFor(at < C.start ? C.start : at > C.end ? C.end : at);
+    return { pct, text: `Tuần ${wk}/${weekNoFor(C.end)}` };
+  }
+  function progHtml(id, at = TODAY, live = true) {
+    const P = M[id]; const v = progValue(P, at); const sm = P.size === 'small';
+    const ms = sorted().filter((s) => s.type === 'nt');
+    const pos = (k) => Math.max(0, Math.min(100, ((dnum(k) - dnum(C.start)) / (dnum(C.end) - dnum(C.start))) * 100));
+    let bar;
+    if (P.look === 'weeks') {
+      const n = weekNoFor(C.end); const cur = weekNoFor(at);
+      const msWeeks = new Set(ms.map((s) => weekNoFor(s.date)));
+      bar = `<div style="display: flex; gap: 3px">${Array.from({ length: n }, (_, i) => {
+        const w = i + 1; const done = P.basis === 'date' ? w < cur : (w / n) * 100 <= v.pct; const isCur = P.basis === 'date' && w === cur;
+        const bg = done ? P.color : isCur ? mix(P.color, 0.35) : '#e5eaf0';
+        return `<span title="Tuần ${w}${msWeeks.has(w) ? ' · có nghiệm thu' : ''}" style="flex: 1 1 0; height: ${sm ? 10 : 18}px; border-radius: 3px; background-color: ${bg}${msWeeks.has(w) ? '; border-bottom: 3px solid #b42318' : ''}"></span>`;
+      }).join('')}</div>`;
+    } else {
+      bar = `<div style="position: relative; height: ${sm ? 8 : 12}px; border-radius: 999px; background-color: #e5eaf0"><div style="width: ${v.pct}%; height: 100%; border-radius: 999px; background-color: ${P.color}"></div>${P.showMilestones && P.basis === 'date' ? ms.map((s) => `<span title="${esc(s.title)} · ${short(s.date)}" style="position: absolute; top: -3px; left: ${pos(s.date)}%; width: 3px; height: ${sm ? 14 : 18}px; margin-left: -1px; background-color: #b42318; border-radius: 2px"></span>`).join('') : ''}</div>`;
+    }
+    const mlist = P.showMilestones && ms.length && !sm ? `<div style="display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: #475569">${ms.map((s) => `<span><span style="color: #b42318">◆</span> ${esc(s.title)} · ${short(s.date)}${dnum(s.date) < dnum(at) ? ' (đã qua)' : ''}</span>`).join('')}</div>` : '';
+    const stamp = live ? '' : `<div style="font-size: 12px; color: #7b8896">Cập nhật ngày ${long(at).split(', ')[1]}</div>`;
+    return `<div style="font-family: ${esc(FONT)}; color: #1f2a37; display: flex; flex-direction: column; gap: ${sm ? 6 : 10}px; padding: ${sm ? 14 : 20}px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff">
+  <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px"><span style="font-size: ${sm ? 13 : 17}px; color: #163a56"><strong>${esc(P.title)}</strong></span><span style="font-size: ${sm ? 20 : 28}px; color: ${P.color}"><strong>${v.pct}%</strong></span></div>
+  ${bar}
+  <div style="font-size: ${sm ? 12.5 : 14}px; color: #475569">${v.text}${P.basis !== 'manual' ? ` · ${short(C.start)} đến ${short(C.end)}` : ''}</div>
+  ${mlist}${stamp}
+</div>`;
+  }
+
+  /* ================= Vẽ vùng trang ================= */
+  const mount = $('mount'), sheet = $('sheet');
+  const instHtml = (id, live) => {
+    const k = M[id].kind;
+    if (k === 'sched') return live ? renderSchedLive(id) : schedCanvas(id);
+    if (k === 'curr') return currHtml(live);
+    if (k === 'prog') return progHtml(id, TODAY, live);
+    return '';
+  };
+  const wrapPick = (id, html) => `<div class="pick${UI.sel === id && UI.mode === 'live' ? ' sel' : ''}" data-inst="${id}">${UI.sel === id && UI.mode === 'live' ? `<span class="pick-tag">${esc(M[id].name)}</span>` : ''}${html}</div>`;
+  const HINTS = {
+    sched: 'Rê chuột lên ngày tô màu để xem nội dung. Nhấp đúp vào một ngày để thêm buổi học.',
+    page: 'Trang bài học có cột bên hẹp: Lịch học mini và Tiến độ cỡ nhỏ. Nhấp một tiện ích để chỉnh thuộc tính; tiêu đề lịch sửa và ẩn ở thẻ Hiển thị.',
+    curr: 'Nhấp một ô hoặc tiêu đề cột để sửa ở bảng thuộc tính. Thử dán bảng từ Excel trong mục "Dữ liệu".',
+    prog: 'Tiến độ tính theo hôm nay so với ngày bắt đầu và kết thúc học kỳ (ví dụ).',
+  };
+  function renderStage() {
+    hideTip();
+    const v = VIEWS.find((x) => x.id === UI.view);
+    sheet.style.width = UI.device === 'desk' ? (UI.view === 'curr' ? '980px' : '820px') : '390px';
+    sheet.classList.toggle('phone', UI.device === 'phone');
+    $('stage-hint').textContent = UI.mode === 'live' ? HINTS[UI.view] : 'Mô phỏng trang sau khi dán vào Canvas: không JavaScript, chỉ style inline.';
+    const live = UI.mode === 'live';
+    let body;
+    if (UI.view === 'page') {
+      body = `<div class="demo-page"><div class="demo-main">
+          <h2>Buổi 7: Tải tệp qua Web API</h2>
+          <p>Nội dung chính của bài học nằm ở cột này. Cột bên phải dành cho các tiện ích nhỏ, luôn trong tầm mắt của sinh viên.</p>
+          <div class="ph" style="width:92%"></div><div class="ph" style="width:86%"></div><div class="ph" style="width:64%"></div>
+          <p>7.1. Tải tệp lên qua Web API · 7.2. Kiểm tra & lưu trữ tệp · 7.3. Trả tệp về cho client</p>
+          <div class="ph" style="width:90%"></div><div class="ph" style="width:72%"></div>
+        </div><div class="demo-side">${v.insts.map((id) => wrapPick(id, instHtml(id, live))).join('')}</div></div>`;
+    } else {
+      body = v.insts.map((id) => wrapPick(id, instHtml(id, live))).join('');
+    }
+    if (live) { mount.innerHTML = body; return; }
+    const codes = v.insts.map((id) => instHtml(id, false)).filter(Boolean);
+    const code = codes.join('\n\n');
+    mount.innerHTML = `<p class="mode-note">Đúng HTML xuất cho Canvas. Tooltip là tooltip mặc định của trình duyệt (rê chuột chờ khoảng 1 giây).</p><div class="canvas-out">${body}</div>
+      <div class="code-wrap"><div class="row"><b style="font-size:13px">Mã HTML cho Canvas</b><span class="hint2">${code.length.toLocaleString('vi-VN')} ký tự</span><button type="button" class="btn" id="copy-html">Sao chép HTML</button></div><pre id="canvas-code">${esc(code)}</pre></div>`;
+  }
+
+  /* ================= Tooltip, nhấp chuột ================= */
+  const tip = $('tip'), toastEl = $('toast');
+  let toastT = 0, lastPointer = 'mouse';
+  function toast(msg) { toastEl.textContent = msg; toastEl.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { toastEl.hidden = true; }, 3800); }
+  function tipHtml(date, pinned) {
+    const list = byDate().get(date) ?? [];
+    return `<h4>${esc(long(date))}</h4>` + list.map((s) => { const t = typeOf(s.type); return `<div class="s"><span class="k" style="background:${t.color}">${esc(t.name)}</span><span class="m">${esc(s.time)}</span><div class="tt">${esc(s.title)}</div>${s.tip ? `<div class="m">${esc(s.tip)}</div>` : ''}${pinned ? `<div class="go"><a href="${esc(s.url)}" data-sid="${s.id}">Mở bài giảng</a></div>` : ''}</div>`; }).join('');
+  }
+  function showTip(cell, pinned = false) {
+    tip.innerHTML = tipHtml(cell.dataset.date, pinned); tip.classList.toggle('pinned', pinned); tip.hidden = false;
+    const r = cell.getBoundingClientRect(); tip.style.left = '0px'; tip.style.top = '0px';
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    const x = Math.min(window.innerWidth - tw - 12, Math.max(12, r.left + r.width / 2 - tw / 2));
+    let y = r.bottom + 8; if (y + th > window.innerHeight - 8) y = Math.max(8, r.top - th - 8);
+    tip.style.left = `${x}px`; tip.style.top = `${y}px`;
+  }
+  function hideTip() { tip.hidden = true; tip.classList.remove('pinned'); }
+  function openSession(s) { toast(`Bản demo không chuyển trang. Khi xuất, liên kết mở trong ${targetOf(s) === 'new' ? 'tab mới' : 'cùng tab'}: ${s.url}`); }
+  const dayCell = (el) => el.closest?.('td.cal-has, .md.has');
+
+  mount.addEventListener('pointerover', (e) => {
+    if (UI.mode !== 'live' || e.pointerType === 'touch' || tip.classList.contains('pinned')) return;
+    const cell = dayCell(e.target); if (cell) showTip(cell); else hideTip();
+  });
+  mount.addEventListener('pointerleave', () => { if (!tip.classList.contains('pinned')) hideTip(); });
+  mount.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; });
+  mount.addEventListener('focusin', (e) => { const c = dayCell(e.target); if (c && UI.mode === 'live') showTip(c); });
+  mount.addEventListener('focusout', () => { if (!tip.classList.contains('pinned')) hideTip(); });
+  mount.addEventListener('keydown', (e) => { const c = dayCell(e.target); if (c && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); activate(c, true); } if (e.key === 'Escape') hideTip(); });
+  function activate(cell, keyboard) {
+    const list = byDate().get(cell.dataset.date) ?? [];
+    if (!list.length) return;
+    if (list.length === 1 && (keyboard || lastPointer !== 'touch')) { openSession(list[0]); return; }
+    showTip(cell, true);
+  }
+  mount.addEventListener('click', (e) => {
+    const instEl = e.target.closest('[data-inst]');
+    const id = instEl?.dataset.inst;
+    if (id && UI.sel !== id && UI.mode === 'live' && !e.target.closest('[data-nav], a, .md.has')) { selectInst(id); return; }
+    if (id && UI.sel !== id && UI.mode === 'live') selectInst(id);
+    const nav = e.target.closest('[data-nav]');
+    if (nav && id) { const d = Number(nav.dataset.nav); M[id].month = d === 0 ? TODAY.slice(0, 7) : shiftMonth(M[id].month, d); renderStage(); renderPanel(); return; }
+    if (e.target.id === 'copy-html') {
+      const code = $('canvas-code').textContent;
+      const sel = () => { const r = document.createRange(); r.selectNodeContents($('canvas-code')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); };
+      if (navigator.clipboard) navigator.clipboard.writeText(code).then(() => toast('Đã sao chép HTML cho Canvas.'), () => { sel(); toast('Mã đã được chọn sẵn, nhấn Ctrl+C để sao chép.'); }); else sel();
+      return;
+    }
+    const a = e.target.closest('a[data-sid]');
+    if (a) { e.preventDefault(); const s = C.sessions.find((x) => x.id === a.dataset.sid); if (s) openSession(s); return; }
+    const cl = e.target.closest('.canvas-out a');
+    if (cl) { e.preventDefault(); const href = cl.getAttribute('href') ?? ''; if (href.startsWith('#')) document.getElementById(href.slice(1))?.scrollIntoView({ behavior: 'smooth', block: 'start' }); else toast(`Trong Canvas, liên kết này mở: ${href}`); return; }
+    const cc = e.target.closest('[data-r]');
+    if (cc && UI.mode === 'live') { e.preventDefault(); UI.cell = { r: Number(cc.dataset.r), c: Number(cc.dataset.c) }; UI.tab = 'cell'; renderStage(); renderPanel(); return; }
+    const cell = dayCell(e.target);
+    if (cell && UI.mode === 'live') activate(cell, false);
+  });
+  mount.addEventListener('dblclick', (e) => {
+    const ttl = e.target.closest('.ttl, .cal-title');
+    const tid = e.target.closest('[data-inst]')?.dataset.inst;
+    if (ttl && tid && UI.mode === 'live') {
+      // Sửa tiêu đề trực tiếp trên lịch.
+      ttl.contentEditable = 'plaintext-only'; ttl.focus();
+      getSelection().selectAllChildren(ttl);
+      const done = () => { M[tid].title = ttl.textContent.trim() || 'Lịch học'; ttl.removeEventListener('blur', done); renderStage(); renderPanel(); };
+      ttl.addEventListener('blur', done);
+      ttl.addEventListener('keydown', (k) => { if (k.key === 'Enter' || k.key === 'Escape') { k.preventDefault(); ttl.blur(); } });
+      return;
+    }
+    const cell = e.target.closest('td[data-date], .md[data-date]');
+    const id = e.target.closest('[data-inst]')?.dataset.inst;
+    if (!cell || UI.mode !== 'live' || !id) return;
+    hideTip(); selectInst(id); startEdit(null, cell.dataset.date);
+  });
+  tip.addEventListener('click', (e) => { const a = e.target.closest('a[data-sid]'); if (a) { e.preventDefault(); const s = C.sessions.find((x) => x.id === a.dataset.sid); if (s) openSession(s); hideTip(); } });
+  document.addEventListener('pointerdown', (e) => { if (tip.classList.contains('pinned') && !tip.contains(e.target) && !dayCell(e.target)) hideTip(); });
+  window.addEventListener('scroll', () => { if (!tip.classList.contains('pinned')) hideTip(); }, true);
+
+  /* ================= Bảng thuộc tính ================= */
+  const pbody = $('pbody'), ptabs = $('ptabs');
+  const TABS = { sched: [['sessions', 'Buổi học'], ['content', 'Hiển thị'], ['style', 'Kiểu dáng']], curr: [['cell', 'Ô đang chọn'], ['data', 'Dữ liệu'], ['look', 'Hiển thị']], prog: [['main', 'Thuộc tính']] };
+  const seg = (name, cur, opts) => `<div class="pseg" role="group">${opts.map(([v, l]) => `<button type="button" data-seg="${name}" data-v="${v}" aria-pressed="${String(cur) === String(v)}">${l}</button>`).join('')}</div>`;
+  const chk = (id, on, label) => `<label class="chk"><input type="checkbox" id="${id}"${on ? ' checked' : ''}> ${label}</label>`;
+  const typeOptions = (sel) => C.types.map((t) => `<option value="${t.id}"${t.id === sel ? ' selected' : ''}>${esc(t.name)}</option>`).join('');
+  const validUrl = (u) => u === '' || /^https?:\/\/[^\s]+$/i.test(u) || u.startsWith('/');
+  const sizeIcon = (k) => ({
+    full: '<svg width="46" height="30" viewBox="0 0 46 30"><rect x=".5" y=".5" width="45" height="29" rx="3" fill="#fff" stroke="#c6d1dc"/><rect x="4" y="9" width="10" height="6" rx="1" fill="#1f5f8b"/><rect x="18" y="9" width="10" height="6" rx="1" fill="#e5eaf0"/><rect x="32" y="9" width="10" height="6" rx="1" fill="#0f766e"/><rect x="4" y="19" width="10" height="6" rx="1" fill="#e5eaf0"/><rect x="18" y="19" width="10" height="6" rx="1" fill="#1f5f8b"/><rect x="32" y="19" width="10" height="6" rx="1" fill="#e5eaf0"/><rect x="4" y="3" width="18" height="3" rx="1" fill="#163a56"/></svg>',
+    compact: '<svg width="46" height="30" viewBox="0 0 46 30"><rect x=".5" y=".5" width="45" height="29" rx="3" fill="#fff" stroke="#c6d1dc"/>' + [0, 1, 2, 3, 4, 5].map((i) => `<circle cx="${7 + i * 6.5}" cy="13" r="1.6" fill="${i % 2 ? '#1f5f8b' : '#cbd5e1'}"/><circle cx="${7 + i * 6.5}" cy="21" r="1.6" fill="${i === 3 ? '#b42318' : '#cbd5e1'}"/>`).join('') + '<rect x="4" y="3" width="14" height="3" rx="1" fill="#163a56"/></svg>',
+    mini: '<svg width="46" height="30" viewBox="0 0 46 30"><rect x="12.5" y=".5" width="21" height="29" rx="3" fill="#fff" stroke="#c6d1dc"/>' + [0, 1, 2].map((r) => [0, 1, 2].map((c) => `<circle cx="${17 + c * 6}" cy="${10 + r * 7}" r="2.2" fill="${(r + c) % 3 === 0 ? '#1f5f8b' : '#e5eaf0'}"/>`).join('')).join('') + '</svg>',
+  }[k]);
+
+  function selectInst(id) {
+    UI.sel = id; UI.editing = null;
+    const k = M[id].kind; UI.tab = TABS[k][0][0];
+    if (k === 'curr' && !UI.cell) UI.tab = 'data';
+    renderStage(); renderPanel();
+  }
+
+  /* ---- Lịch học ---- */
+  function sessionForm() {
+    const s = UI.editing, e = UI.err;
+    return `<div class="form" id="sform"><h4>${s.id ? 'Sửa buổi học' : 'Thêm buổi học'}</h4>
+      <div class="f"><label for="f-date">Ngày</label><input class="in" id="f-date" type="date" value="${s.date}"></div>
+      <div class="f"><label for="f-time">Giờ / tiết</label><input class="in" id="f-time" value="${esc(s.time)}" placeholder="Tiết 7-12 hoặc 13:00"></div>
+      <div class="f"><label for="f-type">Loại</label><select class="in" id="f-type">${typeOptions(s.type)}</select></div>
+      <div class="fs"><label class="lab" for="f-title">Tiêu đề buổi học</label><input class="in ${e.title ? 'bad' : ''}" id="f-title" value="${esc(s.title)}" placeholder="Buổi 8: Xác thực với JWT">${e.title ? `<span class="err">${e.title}</span>` : ''}</div>
+      <div class="f"><label for="f-label">Nhãn trong ô</label><input class="in" id="f-label" value="${esc(s.label)}" placeholder="Buổi 8"></div>
+      <div class="fs"><label class="lab" for="f-tip">Nội dung tooltip</label><textarea class="in" id="f-tip" rows="2">${esc(s.tip)}</textarea></div>
+      <div class="fs"><label class="lab" for="f-url">URL bài giảng</label><input class="in ${e.url ? 'bad' : ''}" id="f-url" value="${esc(s.url)}" placeholder="https://.../courses/1234/pages/buoi-08">${e.url ? `<span class="err">${e.url}</span>` : ''}</div>
+      <div class="f"><label for="f-target">Mở liên kết</label><select class="in" id="f-target"><option value="auto"${s.target === 'auto' ? ' selected' : ''}>Tự động</option><option value="same"${s.target === 'same' ? ' selected' : ''}>Cùng tab</option><option value="new"${s.target === 'new' ? ' selected' : ''}>Tab mới</option></select></div>
+      <div class="row"><button type="button" class="btn pri" data-act="save">Lưu</button><button type="button" class="btn" data-act="cancel">Hủy</button>${s.id ? '<button type="button" class="btn del" data-act="del-edit">Xóa buổi này</button>' : ''}</div></div>`;
+  }
+  function panelSessions() {
+    const S = M[UI.sel];
+    const items = sorted().filter((s) => s.date.slice(0, 7) === S.month);
+    return `<div class="sec"><p class="shared">Buổi học là <b>dữ liệu khóa học dùng chung</b>: sửa ở đây thì Lịch học, Lịch học mini và Tiến độ cùng cập nhật.</p></div>
+      <div class="sec"><div class="row" style="justify-content:space-between"><h3>${monthLabel(S.month)} · ${items.length} mục</h3><button type="button" class="btn pri" data-act="add">+ Thêm buổi học</button></div>
+        ${UI.editing ? sessionForm() : ''}
+        <ul class="slist">${items.length ? items.map((s) => `<li><i style="background:${typeOf(s.type).color}"></i><span class="d">${short(s.date)}</span><span class="t" title="${esc(s.title)}">${esc(s.title)}</span><span class="a"><button type="button" data-act="edit" data-id="${s.id}">Sửa</button><button type="button" data-act="del" data-id="${s.id}">Xóa</button></span></li>`).join('') : '<li><span class="empty" style="grid-column:1/-1">Tháng này chưa có buổi học. Nhấp đúp vào một ngày trên lịch để thêm.</span></li>'}</ul></div>
+      <div class="sec"><details id="rep-d"${UI.repOpen ? ' open' : ''}><summary>Tạo lịch lặp hằng tuần</summary><div class="fs" style="gap:9px">
+        <div class="f"><label for="r-wd">Thứ</label><select class="in" id="r-wd">${WDL.map((w, i) => `<option value="${i}"${i === 2 ? ' selected' : ''}>${w}</option>`).join('')}</select></div>
+        <div class="f"><label for="r-from">Từ ngày</label><input class="in" id="r-from" type="date" value="2026-10-21"></div>
+        <div class="f"><label for="r-to">Đến ngày</label><input class="in" id="r-to" type="date" value="2026-12-09"></div>
+        <div class="f"><label for="r-time">Giờ / tiết</label><input class="in" id="r-time" value="Tiết 7-12"></div>
+        <div class="f"><label for="r-type">Loại</label><select class="in" id="r-type">${typeOptions('bh')}</select></div>
+        <div class="fs"><label class="lab" for="r-url">URL mẫu ({n} = số thứ tự)</label><input class="in" id="r-url" value="${BASE}/pages/buoi-{n}"></div>
+        <div class="f"><label for="r-n0">Bắt đầu từ buổi</label><input class="in" id="r-n0" type="number" min="1" value="8"></div>
+        <div class="fs"><label class="lab" for="r-titles">Tên các buổi, mỗi dòng một buổi (dán từ Excel được)</label><textarea class="in" id="r-titles" rows="3" placeholder="Để trống thì đặt tên Buổi 8, Buổi 9..."></textarea></div>
+        ${chk('r-skip', true, 'Bỏ qua ngày nghỉ')}
+        <div class="row"><button type="button" class="btn pri" data-act="repeat" id="r-go">Tạo buổi học</button></div></div></details></div>
+      <div class="sec"><details${UI.holOpen ? ' open' : ''} id="hol-d"><summary>Ngày nghỉ (${C.holidays.length})</summary>
+        <ul class="slist">${C.holidays.map((h, i) => `<li style="grid-template-columns:64px 1fr auto"><span class="d">${short(h.date)}</span><span class="t">${esc(h.name)}</span><span class="a"><button type="button" data-act="del-hol" data-i="${i}">Xóa</button></span></li>`).join('')}</ul>
+        <div class="row" style="margin-top:8px"><input class="in" id="h-date" type="date" aria-label="Ngày nghỉ" style="flex:0 0 140px"><input class="in" id="h-name" placeholder="Tên ngày nghỉ" aria-label="Tên ngày nghỉ"><button type="button" class="btn" data-act="add-hol">Thêm</button></div></details></div>
+      <div class="sec"><details${UI.typeOpen ? ' open' : ''} id="type-d"><summary>Loại buổi học (${C.types.length})</summary>
+        <ul class="slist types">${C.types.map((t, i) => `<li><input class="in" type="color" value="${t.color}" data-tcolor="${i}" aria-label="Màu ${esc(t.name)}"><input class="in" value="${esc(t.name)}" data-tname="${i}" aria-label="Tên loại"><span class="a"><button type="button" data-act="del-type" data-i="${i}" ${C.sessions.some((s) => s.type === t.id) ? 'disabled title="Đang có buổi học dùng loại này"' : ''}>Xóa</button></span></li>`).join('')}</ul>
+        <button type="button" class="btn" data-act="add-type" style="margin-top:8px">+ Thêm loại</button></details></div>`;
+  }
+  function panelSchedContent() {
+    const S = M[UI.sel];
+    const sizes = [['full', 'Đầy đủ'], ['compact', 'Gọn'], ['mini', 'Mini']];
+    return `<div class="sec"><h3>Kích thước</h3>
+        <div class="sizes" role="group" aria-label="Kích thước lịch">${sizes.map(([k, l]) => `<button type="button" data-seg="size" data-v="${k}" aria-pressed="${S.size === k}">${sizeIcon(k)}${l}</button>`).join('')}</div>
+        <span class="hint2">${S.size === 'mini' ? 'Mini: vòng tròn tô màu, không chữ trong ô. Hợp cột bên rộng 220-300px.' : S.size === 'compact' ? 'Gọn: ô nhỏ, chỉ chấm màu, không nhãn.' : 'Đầy đủ: nhãn trong ô, cột tuần, danh sách buổi học.'}</span></div>
+      <div class="sec"><h3>Tiêu đề</h3>${chk('c-showTitle', S.showTitle, 'Hiện tiêu đề')}<input class="in" id="c-title" value="${esc(S.title)}" aria-label="Nội dung tiêu đề"${S.showTitle ? '' : ' disabled'}><span class="hint2">Nhấp đúp vào tiêu đề trên lịch để sửa trực tiếp.</span></div>
+      <div class="sec"><h3>Lịch</h3>
+        <div class="f"><label>Tuần bắt đầu</label>${seg('weekStart', S.weekStart, [['mon', 'Thứ Hai'], ['sun', 'Chủ Nhật']])}</div>
+        ${S.size === 'mini' ? `${chk('c-showNext', S.showNext, 'Hiện dòng "Buổi tới"')}`
+        : `${chk('c-showWeekNo', S.showWeekNo, 'Hiện cột tuần học')}
+          <div class="f"><label>Đánh dấu ngày</label>${seg('markStyle', S.markStyle, [['fill', 'Tô nền'], ['dot', 'Nhãn'], ['ring', 'Viền']])}</div>
+          ${S.size === 'full' ? chk('c-showLabels', S.showLabels, 'Hiện tên ngắn trong ô') : ''}
+          ${chk('c-showLegend', S.showLegend, 'Hiện chú thích màu')}
+          <div class="f"><label for="c-showAgenda">Danh sách dưới lịch</label><select class="in" id="c-showAgenda"><option value="month"${S.showAgenda === 'month' ? ' selected' : ''}>Buổi trong tháng</option><option value="all"${S.showAgenda === 'all' ? ' selected' : ''}>Cả học kỳ</option><option value="none"${S.showAgenda === 'none' ? ' selected' : ''}>Không hiện</option></select></div>`}
+        ${chk('c-dimPast', S.dimPast, 'Làm mờ buổi đã qua')}
+      </div>
+      <div class="sec"><h3>Khi xuất cho Canvas</h3><span class="hint2">${S.size === 'mini' ? `Xuất một tháng: tháng đang hiển thị (${monthLabel(S.month)}).` : 'Xuất mọi tháng có buổi học, xếp dọc, ◀ ▶ là liên kết nhảy tháng.'}</span></div>`;
+  }
+  function panelSchedStyle() {
+    const st = M[UI.sel].style;
+    return `<div class="sec"><h3>Khung</h3>
+        <div class="f"><label for="y-radius">Bo góc</label><input class="in" id="y-radius" type="number" min="0" max="40" value="${st.radius}"></div>
+        <div class="f"><label for="y-padding">Đệm trong</label><input class="in" id="y-padding" type="number" min="0" max="60" value="${st.padding}"></div>
+        <div class="f"><label for="y-borderWidth">Độ dày viền</label><input class="in" id="y-borderWidth" type="number" min="0" max="8" value="${st.borderWidth}"></div>
+        <div class="f"><label for="y-borderColor">Màu viền</label><input class="in" id="y-borderColor" type="color" value="${st.borderColor}"></div>
+        <div class="f"><label for="y-bg">Màu nền</label><input class="in" id="y-bg" type="color" value="${st.bg}"></div>
+        <div class="f"><label for="y-headerColor">Màu tiêu đề</label><input class="in" id="y-headerColor" type="color" value="${st.headerColor}"></div></div>
+      <div class="sec"><p class="shared">Trong ứng dụng, mọi tiện ích dùng chung các nhóm <b>Bố cục</b>, <b>Nền</b>, <b>Viền và bo góc</b>, <b>Bóng đổ</b>, <b>Khoảng cách</b> và <b>Phong cách</b> như module khác.</p></div>`;
+  }
+
+  /* ---- Chương trình học ---- */
+  function panelCurrCell() {
+    const P = M.curr, c = UI.cell;
+    if (!c) return '<div class="sec"><p class="shared">Nhấp vào một ô hoặc tiêu đề cột trên bảng để sửa.</p></div>';
+    if (c.r === -1) {
+      const col = P.cols[c.c];
+      return `<div class="sec"><h3>Cột ${c.c + 1}</h3>
+        <div class="f"><label for="k-title">Tiêu đề</label><input class="in" id="k-title" value="${esc(col.title)}"></div>
+        <div class="f"><label for="k-date">Ngày</label><input class="in" id="k-date" value="${esc(col.date)}" placeholder="dd/mm"></div>
+        <div class="fs"><label class="lab" for="k-url">Liên kết bài giảng</label><input class="in" id="k-url" value="${esc(col.url)}"></div>
+        <div class="row"><button type="button" class="btn" data-act="col-left">← Chuyển trái</button><button type="button" class="btn" data-act="col-right">Chuyển phải →</button><button type="button" class="btn del" data-act="col-del">Xóa cột</button></div></div>`;
+    }
+    const cell = P.cells[c.r][c.c];
+    return `<div class="sec"><h3>${esc(P.rows[c.r])} · ${esc(P.cols[c.c].title)}</h3>
+      <div class="fs"><label class="lab" for="k-text">Nội dung ô</label><textarea class="in" id="k-text" rows="3">${esc(cell.text)}</textarea></div>
+      ${chk('k-em', cell.em, 'Nhấn mạnh (viền đỏ, như Nghiệm thu)')}
+      <div class="fs"><label class="lab" for="k-curl">Liên kết (không bắt buộc)</label><input class="in" id="k-curl" value="${esc(cell.url)}" placeholder="https://..."></div>
+      <span class="hint2">Dùng phím mũi tên trên bàn phím để chuyển ô khi đang ở ô nhập liệu này là chức năng của bản thật.</span></div>`;
+  }
+  function panelCurrData() {
+    const P = M.curr;
+    return `<div class="sec"><h3>Kích thước bảng</h3>
+        <div class="row"><button type="button" class="btn" data-act="add-col">+ Thêm buổi (cột)</button><button type="button" class="btn" data-act="add-row">+ Thêm tiết (hàng)</button></div>
+        <span class="hint2">${P.rows.length} hàng × ${P.cols.length} cột.</span></div>
+      <div class="sec"><h3>Dán từ Excel</h3>
+        <textarea class="in mono" id="x-paste" rows="5" placeholder="Chọn vùng bảng trong Excel, Ctrl+C rồi dán vào đây"></textarea>
+        <span class="hint2">Hàng đầu: tiêu đề cột (Buổi 1, Buổi 2...). Hàng tiếp theo bắt đầu bằng "Ngày" được dùng làm ngày. Cột đầu: tên hàng (Tiết 7...).</span>
+        <div class="row"><button type="button" class="btn pri" data-act="paste">Thay bằng dữ liệu đã dán</button><button type="button" class="btn" data-act="copy-tsv">Điền bảng hiện tại để thử</button></div></div>
+      <div class="sec"><h3>Liên kết với lịch</h3>
+        <button type="button" class="btn" data-act="sync-dates">Lấy ngày từ Lịch học</button>
+        <span class="hint2">Điền hàng "Ngày" theo thứ tự các buổi học trong dữ liệu khóa học.</span></div>`;
+  }
+  function panelCurrLook() {
+    const P = M.curr;
+    return `<div class="sec"><h3>Dạng hiển thị</h3>
+        ${seg('layout', P.layout, [['grid', 'Bảng (như ảnh)'], ['list', 'Danh sách theo buổi']])}
+        <span class="hint2">Dạng danh sách đọc tốt trên điện thoại.</span></div>
+      <div class="sec"><h3>Bảng</h3>
+        <div class="f"><label for="l-rowHeader">Tiêu đề cột đầu</label><input class="in" id="l-rowHeader" value="${esc(P.rowHeader)}"></div>
+        <div class="f"><label for="l-dateRowLabel">Nhãn hàng ngày</label><input class="in" id="l-dateRowLabel" value="${esc(P.dateRowLabel)}"></div>
+        <div class="f"><label for="l-colWidth">Rộng mỗi cột</label><input class="in" id="l-colWidth" type="number" min="100" max="320" value="${P.colWidth}"></div>
+        ${chk('l-upper', P.upper, 'Viết hoa tiêu đề')}
+        ${chk('l-tint', P.tint, 'Tô màu nhạt theo từng buổi')}
+        ${chk('l-sticky', P.sticky, 'Giữ cột đầu khi cuộn ngang')}
+        <div class="f"><label for="l-headBg">Màu đầu bảng</label><input class="in" id="l-headBg" type="color" value="${P.headBg}"></div>
+        <div class="f"><label for="l-subBg">Màu hàng ngày</label><input class="in" id="l-subBg" type="color" value="${P.subBg}"></div></div>`;
+  }
+
+  /* ---- Tiến độ ---- */
+  function panelProg() {
+    const P = M[UI.sel];
+    return `<div class="sec"><h3>Cách tính</h3>
+        ${seg('basis', P.basis, [['date', 'Theo ngày'], ['session', 'Theo buổi'], ['manual', 'Thủ công']])}
+        ${P.basis === 'manual' ? `<div class="f"><label for="g-manual">Phần trăm</label><input class="in" id="g-manual" type="number" min="0" max="100" value="${P.manual}"></div>` : ''}
+        <span class="hint2">${P.basis === 'date' ? 'Hôm nay so với ngày bắt đầu, kết thúc học kỳ.' : P.basis === 'session' ? 'Số buổi đã học trên tổng số buổi.' : 'Giảng viên tự nhập.'} Trong Canvas, giá trị đóng băng tại ngày xuất.</span></div>
+      <div class="sec"><h3>Học kỳ (dữ liệu dùng chung)</h3>
+        <div class="f"><label for="g-start">Bắt đầu</label><input class="in" id="g-start" type="date" value="${C.start}"></div>
+        <div class="f"><label for="g-end">Kết thúc</label><input class="in" id="g-end" type="date" value="${C.end}"></div>
+        <div class="f"><label for="g-total">Tổng số buổi</label><input class="in" id="g-total" type="number" min="1" max="60" value="${C.totalSessions}"></div></div>
+      <div class="sec"><h3>Hiển thị</h3>
+        <div class="f"><label for="g-title">Tiêu đề</label><input class="in" id="g-title" value="${esc(P.title)}"></div>
+        <div class="f"><label>Kiểu</label>${seg('look', P.look, [['bar', 'Thanh'], ['weeks', 'Ô theo tuần']])}</div>
+        ${chk('g-ms', P.showMilestones, 'Hiện mốc Nghiệm thu')}
+        <div class="f"><label>Cỡ</label>${seg('psize', P.size, [['normal', 'Thường'], ['small', 'Nhỏ']])}</div>
+        <div class="f"><label for="g-color">Màu</label><input class="in" id="g-color" type="color" value="${P.color}"></div></div>`;
+  }
+
+  function renderPanel() {
+    const m = M[UI.sel], tabs = TABS[m.kind];
+    if (!tabs.some(([t]) => t === UI.tab)) UI.tab = tabs[0][0];
+    $('ptitle').textContent = `Thuộc tính · ${m.name}`;
+    ptabs.innerHTML = tabs.map(([t, l]) => `<button type="button" role="tab" data-tab="${t}" aria-selected="${UI.tab === t}">${l}</button>`).join('');
+    const map = { sessions: panelSessions, content: panelSchedContent, style: panelSchedStyle, cell: panelCurrCell, data: panelCurrData, look: panelCurrLook };
+    pbody.innerHTML = m.kind === 'prog' ? panelProg() : map[UI.tab]();
+    if (UI.tab === 'sessions') updateRepeatCount();
+    renderLib();
+  }
+  function updateRepeatCount() {
+    const go = $('r-go'); if (!go) return;
+    const n = repeatDates(Number(val('r-wd')), val('r-from'), val('r-to'), $('r-skip').checked).length;
+    go.textContent = `Tạo ${n} buổi học`;
+  }
+  function startEdit(id, date) {
+    UI.tab = 'sessions'; UI.err = {};
+    const s = id ? C.sessions.find((x) => x.id === id) : null;
+    const S = M[UI.sel];
+    UI.editing = s ? { ...s } : { id: null, date: date ?? `${S.month}-01`, time: 'Tiết 7-12', type: 'bh', title: '', label: '', tip: '', room: '', url: '', target: 'auto' };
+    if (date) S.month = date.slice(0, 7);
+    renderStage(); renderPanel(); $('f-title')?.focus();
+  }
+
+  ptabs.addEventListener('click', (e) => { const b = e.target.closest('[data-tab]'); if (b) { UI.tab = b.dataset.tab; renderPanel(); } });
+  pbody.addEventListener('toggle', (e) => { const k = { 'rep-d': 'repOpen', 'hol-d': 'holOpen', 'type-d': 'typeOpen' }[e.target.id]; if (k) UI[k] = e.target.open; }, true);
+
+  const rerender = () => { renderStage(); renderPanel(); };
+  pbody.addEventListener('click', (e) => {
+    const sg = e.target.closest('[data-seg]');
+    if (sg) {
+      const m = M[UI.sel], v = sg.dataset.v;
+      const k = { size: 'size', weekStart: 'weekStart', markStyle: 'markStyle', layout: 'layout', basis: 'basis', look: 'look', psize: 'size' }[sg.dataset.seg];
+      m[k] = v;
+      if (sg.dataset.seg === 'size' && v === 'mini') { m.style.padding = Math.min(m.style.padding, 14); }
+      rerender(); return;
+    }
+    const b = e.target.closest('[data-act]'); if (!b) return;
+    const act = b.dataset.act, P = M.curr;
+    if (act === 'add') startEdit(null, null);
+    if (act === 'edit') startEdit(b.dataset.id);
+    if (act === 'cancel') { UI.editing = null; renderPanel(); }
+    if (act === 'del' || act === 'del-edit') { const id = act === 'del' ? b.dataset.id : UI.editing.id; C.sessions = C.sessions.filter((s) => s.id !== id); UI.editing = null; rerender(); toast('Đã xóa buổi học.'); }
+    if (act === 'save') {
+      const s = { ...UI.editing, date: val('f-date'), time: val('f-time').trim(), type: val('f-type'), title: val('f-title').trim(), label: val('f-label').trim(), tip: val('f-tip').trim(), url: val('f-url').trim(), target: val('f-target') };
+      UI.err = {};
+      if (!s.title) UI.err.title = 'Nhập tiêu đề buổi học.';
+      if (!s.date) UI.err.title = 'Chọn ngày học.';
+      if (!validUrl(s.url)) UI.err.url = 'URL phải bắt đầu bằng https:// hoặc / (trang trong Canvas).';
+      if (Object.keys(UI.err).length) { UI.editing = s; renderPanel(); return; }
+      if (s.id) C.sessions = C.sessions.map((x) => (x.id === s.id ? s : x)); else C.sessions.push({ ...s, id: uid() });
+      M[UI.sel].month = s.date.slice(0, 7); UI.editing = null; rerender(); toast('Đã lưu buổi học.');
+    }
+    if (act === 'repeat') {
+      const dates = repeatDates(Number(val('r-wd')), val('r-from'), val('r-to'), $('r-skip').checked);
+      const titles = val('r-titles').split('\n').map((t) => t.split('\t').join(' ').trim()).filter(Boolean);
+      const url = val('r-url').trim(), n0 = Math.max(1, Number(val('r-n0')) || 1);
+      if (!dates.length) { toast('Không có ngày nào phù hợp. Kiểm tra lại khoảng ngày.'); return; }
+      if (url && !validUrl(url.replace(/\{n\}/g, '1'))) { toast('URL mẫu phải bắt đầu bằng https:// hoặc /.'); return; }
+      dates.forEach((d, i) => C.sessions.push({ id: uid(), date: d, time: val('r-time'), type: val('r-type'), room: '', title: titles[i] ?? `Buổi ${n0 + i}`, label: `Buổi ${n0 + i}`, tip: '', url: url.replace(/\{n\}/g, pad(n0 + i)), target: 'auto' }));
+      M[UI.sel].month = dates[0].slice(0, 7); rerender(); toast(`Đã tạo ${dates.length} buổi học.`);
+    }
+    if (act === 'add-hol') { const d = val('h-date'); if (!d) { toast('Chọn ngày nghỉ.'); return; } C.holidays = C.holidays.filter((h) => h.date !== d).concat({ date: d, name: val('h-name').trim() || 'Ngày nghỉ' }); UI.holOpen = true; rerender(); }
+    if (act === 'del-hol') { C.holidays.splice(Number(b.dataset.i), 1); rerender(); }
+    if (act === 'add-type') { C.types.push({ id: uid(), name: 'Loại mới', color: ['#0f766e', '#7c3aed', '#be185d'][C.types.length % 3] }); UI.typeOpen = true; rerender(); }
+    if (act === 'del-type') { C.types.splice(Number(b.dataset.i), 1); rerender(); }
+    // Chương trình học
+    if (act === 'add-col') { P.cols.push({ title: `Buổi ${P.cols.length + 1}`, date: '', url: '' }); P.cells.forEach((r) => r.push({ text: '', em: false, url: '' })); UI.cell = { r: -1, c: P.cols.length - 1 }; UI.tab = 'cell'; rerender(); }
+    if (act === 'add-row') { P.rows.push(`Tiết ${P.rows.length + 7}`); P.cells.push(P.cols.map(() => ({ text: '', em: false, url: '' }))); rerender(); }
+    if (act === 'col-del' && UI.cell) { const c = UI.cell.c; if (P.cols.length <= 1) return; P.cols.splice(c, 1); P.cells.forEach((r) => r.splice(c, 1)); UI.cell = null; UI.tab = 'data'; rerender(); }
+    if ((act === 'col-left' || act === 'col-right') && UI.cell) {
+      const c = UI.cell.c, t = act === 'col-left' ? c - 1 : c + 1;
+      if (t < 0 || t >= P.cols.length) return;
+      const sw = (arr) => { [arr[c], arr[t]] = [arr[t], arr[c]]; };
+      sw(P.cols); P.cells.forEach(sw); UI.cell.c = t; rerender();
+    }
+    if (act === 'copy-tsv') {
+      const lines = [[P.rowHeader, ...P.cols.map((c) => c.title)], [P.dateRowLabel, ...P.cols.map((c) => c.date)], ...P.rows.map((r, i) => [r, ...P.cells[i].map((x) => x.text)])];
+      $('x-paste').value = lines.map((l) => l.join('\t')).join('\n');
+    }
+    if (act === 'paste') {
+      const raw = val('x-paste').replace(/\r/g, '').split('\n').filter((l) => l.trim()).map((l) => l.split('\t'));
+      if (raw.length < 2 || raw[0].length < 2) { toast('Chưa nhận ra bảng. Hãy sao chép từ Excel (các cột cách nhau bằng phím Tab).'); return; }
+      const head = raw.shift(); let dates = null;
+      if (raw[0] && /^ng[aà]y$/i.test(raw[0][0].trim())) dates = raw.shift();
+      P.rowHeader = head[0].trim() || 'Tiết';
+      P.cols = head.slice(1).map((t, i) => ({ title: t.trim() || `Buổi ${i + 1}`, date: dates ? (dates[i + 1] ?? '').trim() : '', url: '' }));
+      P.rows = raw.map((r) => r[0].trim());
+      P.cells = raw.map((r) => P.cols.map((_, i) => { const t = (r[i + 1] ?? '').trim(); return { text: t, em: /^(NGHIỆM THU|KIỂM TRA|THI)/.test(t), url: '' }; }));
+      UI.cell = null; rerender(); toast(`Đã nhập ${P.rows.length} hàng × ${P.cols.length} cột.`);
+    }
+    if (act === 'sync-dates') {
+      const ds = sorted().filter((s) => s.type === 'bh').map((s) => { const [, m, d] = parse(s.date); return `${pad(d)}/${pad(m)}`; });
+      P.cols.forEach((c, i) => { if (ds[i]) c.date = ds[i]; }); rerender(); toast(`Đã điền ngày cho ${Math.min(ds.length, P.cols.length)} cột.`);
+    }
+  });
+
+  pbody.addEventListener('input', (e) => {
+    const t = e.target, m = M[UI.sel];
+    if (t.closest('#sform') || t.id === 'x-paste' || t.id === 'r-titles' || t.id?.startsWith('h-')) return;
+    if (t.id?.startsWith('r-')) { updateRepeatCount(); return; }
+    if (t.dataset.tcolor !== undefined) { C.types[Number(t.dataset.tcolor)].color = t.value; renderStage(); return; }
+    if (t.dataset.tname !== undefined) { C.types[Number(t.dataset.tname)].name = t.value || 'Không tên'; renderStage(); return; }
+    const num = (v, lo, hi) => Math.max(lo, Math.min(hi, Number(v) || lo));
+    switch (t.id) {
+      case 'c-title': m.title = t.value; break;
+      case 'k-title': M.curr.cols[UI.cell.c].title = t.value; break;
+      case 'k-date': M.curr.cols[UI.cell.c].date = t.value; break;
+      case 'k-url': M.curr.cols[UI.cell.c].url = validUrl(t.value.trim()) ? t.value.trim() : ''; break;
+      case 'k-text': M.curr.cells[UI.cell.r][UI.cell.c].text = t.value; break;
+      case 'k-curl': M.curr.cells[UI.cell.r][UI.cell.c].url = validUrl(t.value.trim()) ? t.value.trim() : ''; break;
+      case 'l-rowHeader': M.curr.rowHeader = t.value; break;
+      case 'l-dateRowLabel': M.curr.dateRowLabel = t.value; break;
+      case 'l-colWidth': M.curr.colWidth = num(t.value, 100, 320); break;
+      case 'l-headBg': M.curr.headBg = t.value; break;
+      case 'l-subBg': M.curr.subBg = t.value; break;
+      case 'g-manual': m.manual = num(t.value, 0, 100); break;
+      case 'g-start': if (t.value) C.start = C.semesterStart = t.value; break;
+      case 'g-end': if (t.value) C.end = t.value; break;
+      case 'g-total': C.totalSessions = num(t.value, 1, 60); break;
+      case 'g-title': m.title = t.value; break;
+      case 'g-color': m.color = t.value; break;
+      default:
+        if (t.id?.startsWith('y-')) { const k = t.id.slice(2); m.style[k] = t.type === 'number' ? Math.max(0, Number(t.value) || 0) : t.value; break; }
+        return;
+    }
+    renderStage();
+  });
+  pbody.addEventListener('change', (e) => {
+    const t = e.target, m = M[UI.sel];
+    if (t.id === 'r-skip') { updateRepeatCount(); return; }
+    const flags = { 'c-showTitle': 'showTitle', 'c-showWeekNo': 'showWeekNo', 'c-showLabels': 'showLabels', 'c-dimPast': 'dimPast', 'c-showLegend': 'showLegend', 'c-showNext': 'showNext', 'g-ms': 'showMilestones' };
+    const cflags = { 'l-upper': 'upper', 'l-tint': 'tint', 'l-sticky': 'sticky' };
+    if (flags[t.id]) { m[flags[t.id]] = t.checked; if (t.id === 'c-showTitle') { renderStage(); renderPanel(); return; } }
+    else if (cflags[t.id]) M.curr[cflags[t.id]] = t.checked;
+    else if (t.id === 'k-em') M.curr.cells[UI.cell.r][UI.cell.c].em = t.checked;
+    else if (t.id === 'c-showAgenda') m.showAgenda = t.value;
+    else return;
+    renderStage();
+  });
+
+  /* ================= Thư viện, thanh chọn tiện ích ================= */
+  const ICONS = {
+    cal: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg>',
+    mini: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="5" width="12" height="15" rx="2"/><circle cx="10" cy="11" r="1" fill="currentColor"/><circle cx="14" cy="11" r="1" fill="currentColor"/><circle cx="10" cy="15" r="1" fill="currentColor"/></svg>',
+    grid: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16M15 4v16"/></svg>',
+    prog: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="10" width="18" height="5" rx="2.5"/><path d="M5.5 12.5h8"/></svg>',
+  };
+  const LIB = [
+    ['sched', 'Lịch học', 'Lịch tháng, đánh dấu buổi học', 'cal'], ['page', 'Lịch học mini', 'Lịch nhỏ cho cột bên', 'mini'],
+    ['curr', 'Chương trình học', 'Bảng nội dung theo buổi, tiết', 'grid'], ['prog', 'Tiến độ khóa học', 'Thanh tiến độ theo tuần', 'prog'],
+  ];
+  function renderLib() {
+    const g = $('lib-util');
+    g.querySelectorAll('.lib-item').forEach((x) => x.remove());
+    g.insertAdjacentHTML('beforeend', LIB.map(([v, n, d, ic]) => `<button type="button" class="lib-item" data-view="${v}" aria-current="${UI.view === v}"><span class="ic" aria-hidden="true">${ICONS[ic]}</span><span><b>${n}</b><span>${d}</span></span></button>`).join(''));
+    $('view-seg').innerHTML = VIEWS.map((v) => `<button type="button" data-view="${v.id}" aria-pressed="${UI.view === v.id}">${v.label}</button>`).join('');
+  }
+  function setView(v) { UI.view = v; selectInst(VIEWS.find((x) => x.id === v).insts[0]); }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-view]'); if (b) setView(b.dataset.view); });
+
+  const setPressed = (on, off) => { on.setAttribute('aria-pressed', 'true'); off.setAttribute('aria-pressed', 'false'); };
+  $('m-live').addEventListener('click', () => { UI.mode = 'live'; setPressed($('m-live'), $('m-canvas')); renderStage(); });
+  $('m-canvas').addEventListener('click', () => { UI.mode = 'canvas'; setPressed($('m-canvas'), $('m-live')); renderStage(); });
+  $('d-desk').addEventListener('click', () => { UI.device = 'desk'; setPressed($('d-desk'), $('d-phone')); renderStage(); });
+  $('d-phone').addEventListener('click', () => { UI.device = 'phone'; setPressed($('d-phone'), $('d-desk')); renderStage(); });
+
+  renderStage();
+  renderPanel();
+})();
+</script>

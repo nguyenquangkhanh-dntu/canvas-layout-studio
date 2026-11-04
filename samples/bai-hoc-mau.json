@@ -1,0 +1,1252 @@
+{
+  "schema": "canvas-layout-studio/project",
+  "version": 3,
+  "id": "prj_lzknjv3rah",
+  "name": "Bài 01 - Giới thiệu Web API",
+  "createdAt": "2026-11-01T07:37:28.250Z",
+  "updatedAt": "2026-11-01T07:37:28.898Z",
+  "page": {
+    "style": {
+      "fontFamily": "\"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, Tahoma, \"Liberation Sans\", sans-serif",
+      "fontSize": 18,
+      "lineHeight": 1.65,
+      "color": "#1f2a37",
+      "maxWidth": {
+        "value": 960,
+        "unit": "px"
+      },
+      "align": "center",
+      "gap": 24
+    },
+    "accent": "#1f5f8b",
+    "headingColor": "#163a56",
+    "themeId": "professional"
+  },
+  "course": {
+    "start": "2026-08-26",
+    "end": "2026-12-16",
+    "totalSessions": 15,
+    "totalPeriods": 90,
+    "types": [
+      {
+        "id": "bh",
+        "name": "Buổi học",
+        "color": "#1f5f8b",
+        "progress": true
+      },
+      {
+        "id": "th",
+        "name": "Thực hành",
+        "color": "#0f766e",
+        "progress": true
+      },
+      {
+        "id": "nt",
+        "name": "Nghiệm thu, kiểm tra",
+        "color": "#b42318",
+        "progress": false
+      },
+      {
+        "id": "hn",
+        "name": "Hạn nộp",
+        "color": "#a16207",
+        "progress": false
+      }
+    ],
+    "holidays": [
+      {
+        "date": "2026-09-02",
+        "name": "Quốc khánh"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s-b1",
+        "date": "2026-08-26",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 1: Mục tiêu học phần, Web API và REST",
+        "label": "Buổi 1",
+        "tip": "Lab 1 - Cài môi trường & tạo dự án đầu tiên",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-01",
+        "target": "auto"
+      },
+      {
+        "id": "s-b2",
+        "date": "2026-09-09",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 2: Giao thức HTTP, request và response",
+        "label": "Buổi 2",
+        "tip": "Lab 2 - Kiểm thử endpoint bằng Postman",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-02",
+        "target": "auto"
+      },
+      {
+        "id": "s-b3",
+        "date": "2026-09-16",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 3: Controller, routing và model binding",
+        "label": "Buổi 3",
+        "tip": "Lab 3 - CRUD đầy đủ cho tài nguyên Sách",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-03",
+        "target": "auto"
+      },
+      {
+        "id": "s-b4",
+        "date": "2026-09-23",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 4: DTO, phân trang, lọc và sắp xếp",
+        "label": "Buổi 4",
+        "tip": "Lab 4 - Phân trang, lọc & DTO",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-04",
+        "target": "auto"
+      },
+      {
+        "id": "s-b5",
+        "date": "2026-09-30",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 5: Entity Framework Core và SQLite",
+        "label": "Buổi 5",
+        "tip": "Lab 5 - Chuyển sang CSDL SQLite",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-05",
+        "target": "auto"
+      },
+      {
+        "id": "s-b6",
+        "date": "2026-10-07",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 6: LINQ, CRUD và quan hệ bảng",
+        "label": "Buổi 6",
+        "tip": "Lab 6 - CRUD thực tế qua EF Core",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-06",
+        "target": "auto"
+      },
+      {
+        "id": "s-b7",
+        "date": "2026-10-14",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 7: Tải tệp qua Web API",
+        "label": "Buổi 7",
+        "tip": "Lab 7 - Tải lên ảnh bìa sách",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-07",
+        "target": "auto"
+      },
+      {
+        "id": "s-cp1",
+        "date": "2026-09-16",
+        "time": "Tiết 12",
+        "type": "nt",
+        "title": "Nghiệm thu Checkpoint 1",
+        "label": "Checkpoint 1",
+        "tip": "Nghiệm thu Lab 1 đến Lab 3",
+        "periods": 1,
+        "url": "https://lms.example.edu.vn/courses/1234/assignments/checkpoint-1",
+        "target": "auto"
+      },
+      {
+        "id": "s-cp2",
+        "date": "2026-09-30",
+        "time": "Tiết 12",
+        "type": "nt",
+        "title": "Nghiệm thu Checkpoint 2",
+        "label": "Checkpoint 2",
+        "tip": "Nghiệm thu Lab 4 và Lab 5",
+        "periods": 1,
+        "url": "https://lms.example.edu.vn/courses/1234/assignments/checkpoint-2",
+        "target": "auto"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "n_hl7xzlxec9",
+      "type": "container",
+      "name": "Đầu bài",
+      "props": {
+        "title": "Tiêu đề khối",
+        "showTitle": false,
+        "titleLevel": 3,
+        "titleColor": "",
+        "direction": "column",
+        "alignItems": "stretch",
+        "tag": "div"
+      },
+      "style": {
+        "bg": "#ffffff",
+        "borderStyle": "none",
+        "borderWidth": 1,
+        "borderColor": "#e2e8f0",
+        "radius": {
+          "tl": 14,
+          "tr": 14,
+          "br": 14,
+          "bl": 14
+        },
+        "padding": {
+          "t": 32,
+          "r": 32,
+          "b": 32,
+          "l": 32
+        },
+        "gap": 10,
+        "gradient": {
+          "from": "#163a56",
+          "to": "#1f5f8b",
+          "angle": 120
+        },
+        "color": "#ffffff"
+      },
+      "children": [
+        {
+          "id": "n_wnto2agxdq",
+          "type": "text",
+          "name": "Nhãn bài học",
+          "props": {
+            "html": "<p>Bài học 01 · Lập trình Web API</p>"
+          },
+          "style": {
+            "paragraphSpacing": 12,
+            "fontSize": 15,
+            "color": "#cfe2f1"
+          }
+        },
+        {
+          "id": "n_9jthcyf4gz",
+          "type": "heading",
+          "name": "Web API: khái niệm và kiến trúc cơ bản",
+          "props": {
+            "text": "Web API: khái niệm và kiến trúc cơ bản",
+            "level": 2
+          },
+          "style": {
+            "margin": {
+              "t": 0,
+              "r": 0,
+              "b": 0,
+              "l": 0
+            },
+            "color": "#ffffff",
+            "fontSize": 32
+          }
+        },
+        {
+          "id": "n_12e7znao40",
+          "type": "text",
+          "name": "Giới thiệu",
+          "props": {
+            "html": "<p>Bài này giúp sinh viên hiểu Web API là gì, cách client và server trao đổi dữ liệu qua HTTP, và viết được endpoint đầu tiên bằng ASP.NET Core.</p>"
+          },
+          "style": {
+            "paragraphSpacing": 12,
+            "color": "#e8f1f8"
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_9u2nth61wp",
+      "type": "callout",
+      "name": "Mục tiêu học tập",
+      "props": {
+        "variant": "objectives",
+        "title": "Mục tiêu học tập",
+        "showTitle": true,
+        "icon": "🎯",
+        "showIcon": true,
+        "titleColor": "#163a56"
+      },
+      "style": {
+        "bg": "#eef5fb",
+        "color": "#1f2a37",
+        "borderLeftWidth": 5,
+        "borderLeftColor": "#1f5f8b",
+        "radius": {
+          "tl": 10,
+          "tr": 10,
+          "br": 10,
+          "bl": 10
+        },
+        "padding": {
+          "t": 18,
+          "r": 22,
+          "b": 18,
+          "l": 22
+        },
+        "gap": 10
+      },
+      "children": [
+        {
+          "id": "n_3vh99n0q2c",
+          "type": "text",
+          "name": "Nội dung",
+          "props": {
+            "html": "<p>Sau bài học, sinh viên có thể:</p><ul><li><p>Trình bày khái niệm Web API và mô hình client - server.</p></li><li><p>Phân biệt các phương thức HTTP: GET, POST, PUT, DELETE.</p></li><li><p>Đọc hiểu một request và response dạng JSON.</p></li></ul>"
+          },
+          "style": {
+            "paragraphSpacing": 12
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_lzq3rlp0px",
+      "type": "container",
+      "name": "Phần 1",
+      "props": {
+        "title": "1. Web API là gì?",
+        "showTitle": true,
+        "titleLevel": 2,
+        "titleColor": "",
+        "direction": "column",
+        "alignItems": "stretch",
+        "tag": "section"
+      },
+      "style": {
+        "borderStyle": "none",
+        "borderWidth": 1,
+        "borderColor": "#e2e8f0",
+        "radius": {
+          "tl": 12,
+          "tr": 12,
+          "br": 12,
+          "bl": 12
+        },
+        "padding": {
+          "t": 0,
+          "r": 0,
+          "b": 0,
+          "l": 0
+        },
+        "gap": 16
+      },
+      "children": [
+        {
+          "id": "n_0fcatif376",
+          "type": "columns",
+          "name": "2 cột",
+          "props": {
+            "count": 2,
+            "ratios": [
+              1,
+              1
+            ],
+            "minColWidth": 260,
+            "stackOnMobile": true,
+            "valign": "stretch"
+          },
+          "style": {
+            "gap": 24
+          },
+          "children": [
+            {
+              "id": "n_u1wymwsvbu",
+              "type": "column",
+              "name": "Cột 1",
+              "props": {
+                "ratio": 1,
+                "minWidth": 260,
+                "stack": true
+              },
+              "style": {
+                "gap": 16
+              },
+              "children": [
+                {
+                  "id": "n_pnxcex70bf",
+                  "type": "text",
+                  "name": "Khái niệm",
+                  "props": {
+                    "html": "<p><strong>Web API</strong> là tập hợp các điểm truy cập (endpoint) cho phép chương trình khác gửi yêu cầu và nhận dữ liệu qua giao thức HTTP.</p><p>Thay vì trả về trang HTML cho người dùng, Web API thường trả về dữ liệu <strong>JSON</strong> để ứng dụng web, mobile hoặc desktop tự hiển thị.</p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12
+                  }
+                }
+              ]
+            },
+            {
+              "id": "n_jpz7fl6ph3",
+              "type": "column",
+              "name": "Cột 2",
+              "props": {
+                "ratio": 1,
+                "minWidth": 260,
+                "stack": true
+              },
+              "style": {
+                "gap": 16
+              },
+              "children": [
+                {
+                  "id": "n_212na66npm",
+                  "type": "code",
+                  "name": "Ví dụ request",
+                  "props": {
+                    "code": "GET /api/books/1 HTTP/1.1\nHost: localhost:5000\nAccept: application/json",
+                    "language": "HTTP",
+                    "title": "Request",
+                    "showCopy": true
+                  },
+                  "style": {
+                    "bg": "#16212e",
+                    "color": "#e6edf3",
+                    "radius": {
+                      "tl": 10,
+                      "tr": 10,
+                      "br": 10,
+                      "bl": 10
+                    },
+                    "padding": {
+                      "t": 16,
+                      "r": 18,
+                      "b": 16,
+                      "l": 18
+                    },
+                    "fontSize": 15,
+                    "gap": 10
+                  }
+                },
+                {
+                  "id": "n_dqvhx9naw3",
+                  "type": "code",
+                  "name": "Ví dụ response",
+                  "props": {
+                    "code": "{\n  \"id\": 1,\n  \"title\": \"Lập trình C# cơ bản\",\n  \"available\": true\n}",
+                    "language": "JSON",
+                    "title": "Response",
+                    "showCopy": true
+                  },
+                  "style": {
+                    "bg": "#16212e",
+                    "color": "#e6edf3",
+                    "radius": {
+                      "tl": 10,
+                      "tr": 10,
+                      "br": 10,
+                      "bl": 10
+                    },
+                    "padding": {
+                      "t": 16,
+                      "r": 18,
+                      "b": 16,
+                      "l": 18
+                    },
+                    "fontSize": 15,
+                    "gap": 10
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_0vo3fsxi0r",
+      "type": "container",
+      "name": "Phần 2",
+      "props": {
+        "title": "2. Các phương thức HTTP thường dùng",
+        "showTitle": true,
+        "titleLevel": 2,
+        "titleColor": "",
+        "direction": "column",
+        "alignItems": "stretch",
+        "tag": "section"
+      },
+      "style": {
+        "borderStyle": "none",
+        "borderWidth": 1,
+        "borderColor": "#e2e8f0",
+        "radius": {
+          "tl": 12,
+          "tr": 12,
+          "br": 12,
+          "bl": 12
+        },
+        "padding": {
+          "t": 0,
+          "r": 0,
+          "b": 0,
+          "l": 0
+        },
+        "gap": 16
+      },
+      "children": [
+        {
+          "id": "n_y1xca22psv",
+          "type": "grid",
+          "name": "Bảng phương thức",
+          "props": {
+            "minColWidth": 200
+          },
+          "style": {
+            "gap": 14
+          },
+          "children": [
+            {
+              "id": "n_723fquezuh",
+              "type": "container",
+              "name": "Phương thức GET",
+              "props": {
+                "title": "Tiêu đề khối",
+                "showTitle": false,
+                "titleLevel": 3,
+                "titleColor": "",
+                "direction": "column",
+                "alignItems": "stretch",
+                "tag": "div"
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#dbe3ec",
+                "radius": {
+                  "tl": 8,
+                  "tr": 8,
+                  "br": 8,
+                  "bl": 8
+                },
+                "padding": {
+                  "t": 16,
+                  "r": 18,
+                  "b": 16,
+                  "l": 18
+                },
+                "gap": 6,
+                "borderLeftWidth": 4,
+                "borderLeftColor": "#1f5f8b"
+              },
+              "children": [
+                {
+                  "id": "n_uk5b2l4c9f",
+                  "type": "heading",
+                  "name": "GET",
+                  "props": {
+                    "text": "GET",
+                    "level": 3
+                  },
+                  "style": {
+                    "margin": {
+                      "t": 0,
+                      "r": 0,
+                      "b": 0,
+                      "l": 0
+                    },
+                    "color": "#1f5f8b",
+                    "fontSize": 20
+                  }
+                },
+                {
+                  "id": "n_075qb4tmwu",
+                  "type": "text",
+                  "name": "Mô tả GET",
+                  "props": {
+                    "html": "<p>Lấy dữ liệu. Không làm thay đổi trạng thái trên server.</p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12,
+                    "fontSize": 16
+                  }
+                }
+              ]
+            },
+            {
+              "id": "n_qgdatf7q47",
+              "type": "container",
+              "name": "Phương thức POST",
+              "props": {
+                "title": "Tiêu đề khối",
+                "showTitle": false,
+                "titleLevel": 3,
+                "titleColor": "",
+                "direction": "column",
+                "alignItems": "stretch",
+                "tag": "div"
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#dbe3ec",
+                "radius": {
+                  "tl": 8,
+                  "tr": 8,
+                  "br": 8,
+                  "bl": 8
+                },
+                "padding": {
+                  "t": 16,
+                  "r": 18,
+                  "b": 16,
+                  "l": 18
+                },
+                "gap": 6,
+                "borderLeftWidth": 4,
+                "borderLeftColor": "#2f7d4f"
+              },
+              "children": [
+                {
+                  "id": "n_7tl93cm3jf",
+                  "type": "heading",
+                  "name": "POST",
+                  "props": {
+                    "text": "POST",
+                    "level": 3
+                  },
+                  "style": {
+                    "margin": {
+                      "t": 0,
+                      "r": 0,
+                      "b": 0,
+                      "l": 0
+                    },
+                    "color": "#2f7d4f",
+                    "fontSize": 20
+                  }
+                },
+                {
+                  "id": "n_an596grvw4",
+                  "type": "text",
+                  "name": "Mô tả POST",
+                  "props": {
+                    "html": "<p>Tạo mới một tài nguyên, dữ liệu gửi trong body.</p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12,
+                    "fontSize": 16
+                  }
+                }
+              ]
+            },
+            {
+              "id": "n_dcue1m907c",
+              "type": "container",
+              "name": "Phương thức PUT",
+              "props": {
+                "title": "Tiêu đề khối",
+                "showTitle": false,
+                "titleLevel": 3,
+                "titleColor": "",
+                "direction": "column",
+                "alignItems": "stretch",
+                "tag": "div"
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#dbe3ec",
+                "radius": {
+                  "tl": 8,
+                  "tr": 8,
+                  "br": 8,
+                  "bl": 8
+                },
+                "padding": {
+                  "t": 16,
+                  "r": 18,
+                  "b": 16,
+                  "l": 18
+                },
+                "gap": 6,
+                "borderLeftWidth": 4,
+                "borderLeftColor": "#946200"
+              },
+              "children": [
+                {
+                  "id": "n_skf5852jb0",
+                  "type": "heading",
+                  "name": "PUT",
+                  "props": {
+                    "text": "PUT",
+                    "level": 3
+                  },
+                  "style": {
+                    "margin": {
+                      "t": 0,
+                      "r": 0,
+                      "b": 0,
+                      "l": 0
+                    },
+                    "color": "#946200",
+                    "fontSize": 20
+                  }
+                },
+                {
+                  "id": "n_w0wn4dfddc",
+                  "type": "text",
+                  "name": "Mô tả PUT",
+                  "props": {
+                    "html": "<p>Cập nhật toàn bộ một tài nguyên đã có.</p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12,
+                    "fontSize": 16
+                  }
+                }
+              ]
+            },
+            {
+              "id": "n_n7fc64ladr",
+              "type": "container",
+              "name": "Phương thức DELETE",
+              "props": {
+                "title": "Tiêu đề khối",
+                "showTitle": false,
+                "titleLevel": 3,
+                "titleColor": "",
+                "direction": "column",
+                "alignItems": "stretch",
+                "tag": "div"
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#dbe3ec",
+                "radius": {
+                  "tl": 8,
+                  "tr": 8,
+                  "br": 8,
+                  "bl": 8
+                },
+                "padding": {
+                  "t": 16,
+                  "r": 18,
+                  "b": 16,
+                  "l": 18
+                },
+                "gap": 6,
+                "borderLeftWidth": 4,
+                "borderLeftColor": "#b42318"
+              },
+              "children": [
+                {
+                  "id": "n_ugop20jud9",
+                  "type": "heading",
+                  "name": "DELETE",
+                  "props": {
+                    "text": "DELETE",
+                    "level": 3
+                  },
+                  "style": {
+                    "margin": {
+                      "t": 0,
+                      "r": 0,
+                      "b": 0,
+                      "l": 0
+                    },
+                    "color": "#b42318",
+                    "fontSize": 20
+                  }
+                },
+                {
+                  "id": "n_tj5s1vqnpk",
+                  "type": "text",
+                  "name": "Mô tả DELETE",
+                  "props": {
+                    "html": "<p>Xóa một tài nguyên theo định danh.</p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12,
+                    "fontSize": 16
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "n_xih5puv4t0",
+          "type": "callout",
+          "name": "Quan trọng",
+          "props": {
+            "variant": "important",
+            "title": "Phân biệt PUT và PATCH",
+            "showTitle": true,
+            "icon": "❗",
+            "showIcon": true,
+            "titleColor": "#8a1c14"
+          },
+          "style": {
+            "bg": "#fdf1f0",
+            "color": "#1f2a37",
+            "borderLeftWidth": 5,
+            "borderLeftColor": "#b42318",
+            "radius": {
+              "tl": 10,
+              "tr": 10,
+              "br": 10,
+              "bl": 10
+            },
+            "padding": {
+              "t": 18,
+              "r": 22,
+              "b": 18,
+              "l": 22
+            },
+            "gap": 10
+          },
+          "children": [
+            {
+              "id": "n_d9vd0y31sq",
+              "type": "text",
+              "name": "Nội dung",
+              "props": {
+                "html": "<p><strong>PUT</strong> gửi lại toàn bộ đối tượng; <strong>PATCH</strong> chỉ gửi các trường cần thay đổi. Dùng sai có thể làm mất dữ liệu của những trường không được gửi.</p>"
+              },
+              "style": {
+                "paragraphSpacing": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_wi4dui1uh2",
+      "type": "container",
+      "name": "Phần 3",
+      "props": {
+        "title": "3. Viết endpoint đầu tiên",
+        "showTitle": true,
+        "titleLevel": 2,
+        "titleColor": "",
+        "direction": "column",
+        "alignItems": "stretch",
+        "tag": "section"
+      },
+      "style": {
+        "borderStyle": "none",
+        "borderWidth": 1,
+        "borderColor": "#e2e8f0",
+        "radius": {
+          "tl": 12,
+          "tr": 12,
+          "br": 12,
+          "bl": 12
+        },
+        "padding": {
+          "t": 0,
+          "r": 0,
+          "b": 0,
+          "l": 0
+        },
+        "gap": 16
+      },
+      "children": [
+        {
+          "id": "n_lukq3znt6a",
+          "type": "text",
+          "name": "Dẫn nhập",
+          "props": {
+            "html": "<p>Với <em>Minimal API</em> của ASP.NET Core, chỉ cần vài dòng để có một endpoint trả về danh sách sách dạng JSON:</p>"
+          },
+          "style": {
+            "paragraphSpacing": 12
+          }
+        },
+        {
+          "id": "n_0ut7flplj3",
+          "type": "code",
+          "name": "Endpoint đầu tiên",
+          "props": {
+            "code": "var builder = WebApplication.CreateBuilder(args);\nvar app = builder.Build();\n\nvar books = new[] { new { Id = 1, Title = \"Lập trình C# cơ bản\" } };\n\napp.MapGet(\"/api/books\", () => books);\n\napp.Run();",
+            "language": "C#",
+            "title": "Program.cs",
+            "showCopy": true
+          },
+          "style": {
+            "bg": "#16212e",
+            "color": "#e6edf3",
+            "radius": {
+              "tl": 10,
+              "tr": 10,
+              "br": 10,
+              "bl": 10
+            },
+            "padding": {
+              "t": 16,
+              "r": 18,
+              "b": 16,
+              "l": 18
+            },
+            "fontSize": 15,
+            "gap": 10
+          }
+        },
+        {
+          "id": "n_ugrckznh28",
+          "type": "callout",
+          "name": "Ví dụ",
+          "props": {
+            "variant": "example",
+            "title": "Thử ngay",
+            "showTitle": true,
+            "icon": "💡",
+            "showIcon": true,
+            "titleColor": "#4a3391"
+          },
+          "style": {
+            "bg": "#f4f1fb",
+            "color": "#1f2a37",
+            "borderLeftWidth": 5,
+            "borderLeftColor": "#6d4fc2",
+            "radius": {
+              "tl": 10,
+              "tr": 10,
+              "br": 10,
+              "bl": 10
+            },
+            "padding": {
+              "t": 18,
+              "r": 22,
+              "b": 18,
+              "l": 22
+            },
+            "gap": 10
+          },
+          "children": [
+            {
+              "id": "n_jye09ovxog",
+              "type": "text",
+              "name": "Nội dung",
+              "props": {
+                "html": "<p>Chạy lệnh <code>dotnet run</code>, sau đó mở trình duyệt tới <code>http://localhost:5000/api/books</code> để xem kết quả JSON.</p>"
+              },
+              "style": {
+                "paragraphSpacing": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_4eece16ymj",
+      "type": "divider",
+      "name": "Divider",
+      "props": {
+        "thickness": 1,
+        "lineStyle": "solid",
+        "color": "#d5dce3"
+      },
+      "style": {
+        "margin": {
+          "t": 4,
+          "r": 0,
+          "b": 4,
+          "l": 0
+        }
+      }
+    },
+    {
+      "id": "n_n44kjbp9r1",
+      "type": "columns",
+      "name": "2 cột",
+      "props": {
+        "count": 2,
+        "ratios": [
+          1,
+          1
+        ],
+        "minColWidth": 260,
+        "stackOnMobile": true,
+        "valign": "stretch"
+      },
+      "style": {
+        "gap": 24
+      },
+      "children": [
+        {
+          "id": "n_e9ovkdb92a",
+          "type": "column",
+          "name": "Cột 1",
+          "props": {
+            "ratio": 1,
+            "minWidth": 260,
+            "stack": true
+          },
+          "style": {
+            "gap": 16
+          },
+          "children": [
+            {
+              "id": "n_4ovbcu5q7v",
+              "type": "callout",
+              "name": "Bài tập",
+              "props": {
+                "variant": "exercise",
+                "title": "Bài tập",
+                "showTitle": true,
+                "icon": "✍️",
+                "showIcon": true,
+                "titleColor": "#0b5568"
+              },
+              "style": {
+                "bg": "#eef7f8",
+                "color": "#1f2a37",
+                "borderLeftWidth": 5,
+                "borderLeftColor": "#0e7490",
+                "radius": {
+                  "tl": 10,
+                  "tr": 10,
+                  "br": 10,
+                  "bl": 10
+                },
+                "padding": {
+                  "t": 18,
+                  "r": 22,
+                  "b": 18,
+                  "l": 22
+                },
+                "gap": 10
+              },
+              "children": [
+                {
+                  "id": "n_eyljj5yog9",
+                  "type": "text",
+                  "name": "Nội dung",
+                  "props": {
+                    "html": "<ol><li><p>Thêm endpoint <code>GET /api/books/{id}</code> trả về một cuốn sách.</p></li><li><p>Trả về mã 404 khi không tìm thấy.</p></li><li><p>Kiểm tra bằng Postman và chụp màn hình kết quả.</p></li></ol>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "n_yy6ffo89mh",
+          "type": "column",
+          "name": "Cột 2",
+          "props": {
+            "ratio": 1,
+            "minWidth": 260,
+            "stack": true
+          },
+          "style": {
+            "gap": 16
+          },
+          "children": [
+            {
+              "id": "n_omin7153mf",
+              "type": "callout",
+              "name": "Kiểm tra nhanh",
+              "props": {
+                "variant": "check",
+                "title": "Kiểm tra nhanh",
+                "showTitle": true,
+                "icon": "❓",
+                "showIcon": true,
+                "titleColor": "#7a2159"
+              },
+              "style": {
+                "bg": "#fdf4fa",
+                "color": "#1f2a37",
+                "borderLeftWidth": 5,
+                "borderLeftColor": "#a3337a",
+                "radius": {
+                  "tl": 10,
+                  "tr": 10,
+                  "br": 10,
+                  "bl": 10
+                },
+                "padding": {
+                  "t": 18,
+                  "r": 22,
+                  "b": 18,
+                  "l": 22
+                },
+                "gap": 10
+              },
+              "children": [
+                {
+                  "id": "n_1gupuq2x2m",
+                  "type": "text",
+                  "name": "Nội dung",
+                  "props": {
+                    "html": "<p><strong>Câu hỏi:</strong> Phương thức nào dùng để tạo mới dữ liệu?</p><ol type=\"A\"><li><p>GET</p></li><li><p>POST</p></li><li><p>DELETE</p></li></ol><p><em>Đáp án: B. POST gửi dữ liệu mới trong phần body của request.</em></p>"
+                  },
+                  "style": {
+                    "paragraphSpacing": 12
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_yap0wn9bt9",
+      "type": "callout",
+      "name": "Tóm tắt",
+      "props": {
+        "variant": "summary",
+        "title": "Tóm tắt",
+        "showTitle": true,
+        "icon": "📌",
+        "showIcon": true,
+        "titleColor": "#1f4e79"
+      },
+      "style": {
+        "bg": "#f3f5f9",
+        "color": "#1f2a37",
+        "borderLeftWidth": 5,
+        "borderLeftColor": "#1f4e79",
+        "radius": {
+          "tl": 10,
+          "tr": 10,
+          "br": 10,
+          "bl": 10
+        },
+        "padding": {
+          "t": 18,
+          "r": 22,
+          "b": 18,
+          "l": 22
+        },
+        "gap": 10
+      },
+      "children": [
+        {
+          "id": "n_ubn2xlp37n",
+          "type": "text",
+          "name": "Nội dung",
+          "props": {
+            "html": "<ul><li><p>Web API trao đổi dữ liệu qua HTTP, thường ở dạng JSON.</p></li><li><p>Mỗi phương thức HTTP có một mục đích riêng.</p></li><li><p>ASP.NET Core Minimal API giúp tạo endpoint nhanh với ít mã.</p></li></ul>"
+          },
+          "style": {
+            "paragraphSpacing": 12
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_pytgl8dtld",
+      "type": "container",
+      "name": "Việc cần làm",
+      "props": {
+        "title": "Trước buổi học sau",
+        "showTitle": true,
+        "titleLevel": 3,
+        "titleColor": "",
+        "direction": "column",
+        "alignItems": "stretch",
+        "tag": "div"
+      },
+      "style": {
+        "bg": "#f8fafc",
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "borderColor": "#dbe3ec",
+        "radius": {
+          "tl": 8,
+          "tr": 8,
+          "br": 8,
+          "bl": 8
+        },
+        "padding": {
+          "t": 20,
+          "r": 24,
+          "b": 20,
+          "l": 24
+        },
+        "gap": 12
+      },
+      "children": [
+        {
+          "id": "n_ze7ptyk5a0",
+          "type": "checklist",
+          "name": "Việc cần làm",
+          "props": {
+            "items": [
+              {
+                "id": "c1",
+                "text": "Đọc lại mục 1 và 2 của bài",
+                "checked": true
+              },
+              {
+                "id": "c2",
+                "text": "Hoàn thành bài tập thực hành",
+                "checked": false
+              },
+              {
+                "id": "c3",
+                "text": "Nộp ảnh chụp kết quả trên Canvas trước buổi học sau",
+                "checked": false
+              }
+            ],
+            "markColor": ""
+          },
+          "style": {
+            "gap": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "n_5903sl3uza",
+      "type": "callout",
+      "name": "Tài liệu tham khảo",
+      "props": {
+        "variant": "resources",
+        "title": "Tài liệu tham khảo",
+        "showTitle": true,
+        "icon": "🔗",
+        "showIcon": true,
+        "titleColor": "#1f2a37"
+      },
+      "style": {
+        "bg": "#f7f8fa",
+        "color": "#1f2a37",
+        "borderLeftWidth": 5,
+        "borderLeftColor": "#475569",
+        "radius": {
+          "tl": 10,
+          "tr": 10,
+          "br": 10,
+          "bl": 10
+        },
+        "padding": {
+          "t": 18,
+          "r": 22,
+          "b": 18,
+          "l": 22
+        },
+        "gap": 10
+      },
+      "children": [
+        {
+          "id": "n_66mdja1mg6",
+          "type": "text",
+          "name": "Nội dung",
+          "props": {
+            "html": "<ul><li><p><a href=\"https://learn.microsoft.com/aspnet/core/fundamentals/minimal-apis\" target=\"_blank\" rel=\"noopener noreferrer\">Microsoft Learn: Minimal APIs</a></p></li><li><p><a href=\"https://developer.mozilla.org/vi/docs/Web/HTTP/Methods\" target=\"_blank\" rel=\"noopener noreferrer\">MDN: HTTP request methods</a></p></li></ul>"
+          },
+          "style": {
+            "paragraphSpacing": 12
+          }
+        }
+      ]
+    }
+  ]
+}

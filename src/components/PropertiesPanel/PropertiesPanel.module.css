@@ -1,0 +1,20 @@
+.panel { display: flex; flex-direction: column; padding-bottom: 32px; }
+.head { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 10px 10px 10px 14px; background: var(--panel); border-bottom: 1px solid var(--rule); }
+.headIcon { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); flex-shrink: 0; }
+.headText { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.headText strong { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.headText span { font-size: 11.5px; color: var(--ink-3); }
+.lockNote { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 10px 14px 0; padding: 8px 10px; border-radius: 6px; background: var(--warn-soft); color: var(--warn); font-size: 12px; }
+.fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.fieldset:disabled { opacity: 0.55; }
+.mono { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-2); word-break: break-all; }
+.empty { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 22px 22px 16px; text-align: center; color: var(--ink-3); border-bottom: 1px solid var(--rule-2); }
+.empty p { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+.themes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.theme { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 4px 2px 6px; border: 1px solid var(--rule-2); border-radius: 6px; background: #fff; font-size: 11px; color: var(--ink-2); }
+.theme[aria-pressed='true'] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); color: var(--ink); font-weight: 600; }
+.themeSwatch { position: relative; display: block; width: 100%; height: 34px; border-radius: 4px; border: 1px solid var(--rule-2); overflow: hidden; }
+.themeSwatch span { position: absolute; left: 6px; right: 6px; top: 6px; bottom: 9px; border: 1px solid transparent; }
+.themeSwatch i { position: absolute; left: 6px; bottom: 3px; width: 18px; height: 3px; border-radius: 2px; }
+
+.groupLabel { padding: 14px 14px 4px; font-size: 11.5px; font-weight: 600; color: var(--ink-3); background: var(--panel-2); border-bottom: 1px solid var(--rule-2); }

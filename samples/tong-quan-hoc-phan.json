@@ -1,0 +1,664 @@
+{
+  "schema": "canvas-layout-studio/project",
+  "version": 3,
+  "id": "prj_iweo32l1sn",
+  "name": "Tổng quan học phần Lập trình Web API",
+  "createdAt": "2026-11-01T07:37:30.781Z",
+  "updatedAt": "2026-11-01T07:37:31.394Z",
+  "page": {
+    "style": {
+      "fontFamily": "\"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, Tahoma, \"Liberation Sans\", sans-serif",
+      "fontSize": 18,
+      "lineHeight": 1.65,
+      "color": "#1f2a37",
+      "maxWidth": {
+        "value": 960,
+        "unit": "px"
+      },
+      "align": "center",
+      "gap": 24
+    },
+    "accent": "#1f5f8b",
+    "headingColor": "#163a56"
+  },
+  "course": {
+    "start": "2026-08-26",
+    "end": "2026-12-16",
+    "totalSessions": 15,
+    "totalPeriods": 90,
+    "types": [
+      {
+        "id": "bh",
+        "name": "Buổi học",
+        "color": "#1f5f8b",
+        "progress": true
+      },
+      {
+        "id": "th",
+        "name": "Thực hành",
+        "color": "#0f766e",
+        "progress": true
+      },
+      {
+        "id": "nt",
+        "name": "Nghiệm thu, kiểm tra",
+        "color": "#b42318",
+        "progress": false
+      },
+      {
+        "id": "hn",
+        "name": "Hạn nộp",
+        "color": "#a16207",
+        "progress": false
+      }
+    ],
+    "holidays": [
+      {
+        "date": "2026-09-02",
+        "name": "Quốc khánh"
+      }
+    ],
+    "sessions": [
+      {
+        "id": "s-b1",
+        "date": "2026-08-26",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 1: Mục tiêu học phần, Web API và REST",
+        "label": "Buổi 1",
+        "tip": "Lab 1 - Cài môi trường & tạo dự án đầu tiên",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-01",
+        "target": "auto"
+      },
+      {
+        "id": "s-b2",
+        "date": "2026-09-09",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 2: Giao thức HTTP, request và response",
+        "label": "Buổi 2",
+        "tip": "Lab 2 - Kiểm thử endpoint bằng Postman",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-02",
+        "target": "auto"
+      },
+      {
+        "id": "s-b3",
+        "date": "2026-09-16",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 3: Controller, routing và model binding",
+        "label": "Buổi 3",
+        "tip": "Lab 3 - CRUD đầy đủ cho tài nguyên Sách",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-03",
+        "target": "auto"
+      },
+      {
+        "id": "s-b4",
+        "date": "2026-09-23",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 4: DTO, phân trang, lọc và sắp xếp",
+        "label": "Buổi 4",
+        "tip": "Lab 4 - Phân trang, lọc & DTO",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-04",
+        "target": "auto"
+      },
+      {
+        "id": "s-b5",
+        "date": "2026-09-30",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 5: Entity Framework Core và SQLite",
+        "label": "Buổi 5",
+        "tip": "Lab 5 - Chuyển sang CSDL SQLite",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-05",
+        "target": "auto"
+      },
+      {
+        "id": "s-b6",
+        "date": "2026-10-07",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 6: LINQ, CRUD và quan hệ bảng",
+        "label": "Buổi 6",
+        "tip": "Lab 6 - CRUD thực tế qua EF Core",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-06",
+        "target": "auto"
+      },
+      {
+        "id": "s-b7",
+        "date": "2026-10-14",
+        "time": "Tiết 7-12",
+        "type": "bh",
+        "title": "Buổi 7: Tải tệp qua Web API",
+        "label": "Buổi 7",
+        "tip": "Lab 7 - Tải lên ảnh bìa sách",
+        "periods": 6,
+        "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-07",
+        "target": "auto"
+      },
+      {
+        "id": "s-cp1",
+        "date": "2026-09-16",
+        "time": "Tiết 12",
+        "type": "nt",
+        "title": "Nghiệm thu Checkpoint 1",
+        "label": "Checkpoint 1",
+        "tip": "Nghiệm thu Lab 1 đến Lab 3",
+        "periods": 1,
+        "url": "https://lms.example.edu.vn/courses/1234/assignments/checkpoint-1",
+        "target": "auto"
+      },
+      {
+        "id": "s-cp2",
+        "date": "2026-09-30",
+        "time": "Tiết 12",
+        "type": "nt",
+        "title": "Nghiệm thu Checkpoint 2",
+        "label": "Checkpoint 2",
+        "tip": "Nghiệm thu Lab 4 và Lab 5",
+        "periods": 1,
+        "url": "https://lms.example.edu.vn/courses/1234/assignments/checkpoint-2",
+        "target": "auto"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "n_3cg7u2lu2p",
+      "type": "heading",
+      "name": "Tên học phần",
+      "props": {
+        "text": "Lập trình Web API · Tổng quan học phần",
+        "level": 2
+      },
+      "style": {
+        "margin": {
+          "t": 0,
+          "r": 0,
+          "b": 0,
+          "l": 0
+        },
+        "fontSize": 30
+      }
+    },
+    {
+      "id": "n_7wfqcbl0ub",
+      "type": "columns",
+      "name": "Nội dung và cột bên",
+      "props": {
+        "count": 2,
+        "ratios": [
+          3,
+          1
+        ],
+        "minColWidth": 200,
+        "stackOnMobile": true,
+        "valign": "stretch"
+      },
+      "style": {
+        "gap": 24
+      },
+      "children": [
+        {
+          "id": "n_66cn3znani",
+          "type": "column",
+          "name": "Cột 1",
+          "props": {
+            "ratio": 3,
+            "minWidth": 200,
+            "stack": true
+          },
+          "style": {
+            "gap": 16
+          },
+          "children": [
+            {
+              "id": "n_s5txu9c3fp",
+              "type": "heading",
+              "name": "Tiêu đề",
+              "props": {
+                "text": "Chương trình học",
+                "level": 2
+              },
+              "style": {
+                "margin": {
+                  "t": 0,
+                  "r": 0,
+                  "b": 0,
+                  "l": 0
+                }
+              }
+            },
+            {
+              "id": "n_wstegl43tn",
+              "type": "curriculum",
+              "name": "Chương trình học",
+              "props": {
+                "layout": "grid",
+                "rowHeader": "Tiết",
+                "dateRowLabel": "Ngày",
+                "upper": true,
+                "tint": true,
+                "sticky": true,
+                "headBg": "#163a56",
+                "subBg": "#24557c",
+                "colWidth": 180,
+                "rows": [
+                  "Tiết 7",
+                  "Tiết 8",
+                  "Tiết 9",
+                  "Tiết 10",
+                  "Tiết 11",
+                  "Tiết 12"
+                ],
+                "cols": [
+                  {
+                    "title": "Buổi 1",
+                    "date": "26/08",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-01"
+                  },
+                  {
+                    "title": "Buổi 2",
+                    "date": "09/09",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-02"
+                  },
+                  {
+                    "title": "Buổi 3",
+                    "date": "16/09",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-03"
+                  },
+                  {
+                    "title": "Buổi 4",
+                    "date": "23/09",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-04"
+                  },
+                  {
+                    "title": "Buổi 5",
+                    "date": "30/09",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-05"
+                  },
+                  {
+                    "title": "Buổi 6",
+                    "date": "07/10",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-06"
+                  },
+                  {
+                    "title": "Buổi 7",
+                    "date": "14/10",
+                    "url": "https://lms.example.edu.vn/courses/1234/pages/buoi-07"
+                  }
+                ],
+                "cells": [
+                  [
+                    {
+                      "text": "Mục tiêu, nội dung học phần",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 1",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 2",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 3",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 4",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 5",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Ôn Chương 6",
+                      "em": false,
+                      "url": ""
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Yêu cầu & nội quy lớp",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "2.1. Giao thức HTTP: phương thức & mã trạng thái",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "3.1. Controller & attribute routing",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "4.1. DTO & tách khỏi entity",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "5.1. ORM & Entity Framework Core",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "6.1. Truy vấn dữ liệu với LINQ",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "7.1. Tải tệp lên qua Web API",
+                      "em": false,
+                      "url": ""
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1.1. Web Service & Web API",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "2.2. Cấu trúc request & response",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "3.2. Model binding: route, query, body",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "4.2. Phân trang dữ liệu",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "5.2. DbContext & mô hình dữ liệu",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "6.2. Thêm, sửa, xoá bản ghi",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "7.2. Kiểm tra & lưu trữ tệp",
+                      "em": false,
+                      "url": ""
+                    }
+                  ],
+                  [
+                    {
+                      "text": "1.2. Kiến trúc REST & nguyên tắc thiết kế",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "2.3. Kiểm thử với Swagger & Postman",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "3.3. Mã trạng thái trong phản hồi",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "4.3. Lọc & sắp xếp kết quả",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "5.3. Migration & kết nối SQLite",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "6.3. Quan hệ giữa các bảng & Include",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "7.3. Trả tệp về cho client",
+                      "em": false,
+                      "url": ""
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Lab 1 - Cài môi trường & tạo dự án đầu tiên",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 2 - Kiểm thử endpoint bằng Postman",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 3 - CRUD đầy đủ cho tài nguyên Sách",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 4 - Phân trang, lọc & DTO",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 5 - Chuyển sang CSDL SQLite",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 6 - CRUD thực tế qua EF Core",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Lab 7 - Tải lên ảnh bìa sách",
+                      "em": false,
+                      "url": ""
+                    }
+                  ],
+                  [
+                    {
+                      "text": "Củng cố Chương 1 · giao Lab 1",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Củng cố Chương 2 · trắc nghiệm",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "NGHIỆM THU Checkpoint 1",
+                      "em": true,
+                      "url": ""
+                    },
+                    {
+                      "text": "Củng cố Chương 4 · trắc nghiệm",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "NGHIỆM THU Checkpoint 2",
+                      "em": true,
+                      "url": ""
+                    },
+                    {
+                      "text": "Củng cố Chương 6 · trắc nghiệm",
+                      "em": false,
+                      "url": ""
+                    },
+                    {
+                      "text": "Củng cố Chương 7 · trắc nghiệm",
+                      "em": false,
+                      "url": ""
+                    }
+                  ]
+                ]
+              },
+              "style": {
+                "fontSize": 15
+              }
+            }
+          ]
+        },
+        {
+          "id": "n_5tdiz89xfa",
+          "type": "column",
+          "name": "Cột 2",
+          "props": {
+            "ratio": 1,
+            "minWidth": 200,
+            "stack": true
+          },
+          "style": {
+            "gap": 16
+          },
+          "children": [
+            {
+              "id": "n_um56garj3q",
+              "type": "schedule",
+              "name": "Lịch học mini",
+              "props": {
+                "size": "mini",
+                "title": "Lịch học",
+                "showTitle": true,
+                "titleStyle": "inline",
+                "month": "auto",
+                "weekStart": "mon",
+                "showWeekNo": true,
+                "markStyle": "fill",
+                "showLabels": true,
+                "showLegend": true,
+                "showAgenda": "month",
+                "showNext": true,
+                "dimPast": true
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#e2e8f0",
+                "radius": {
+                  "tl": 12,
+                  "tr": 12,
+                  "br": 12,
+                  "bl": 12
+                },
+                "padding": {
+                  "t": 14,
+                  "r": 14,
+                  "b": 14,
+                  "l": 14
+                },
+                "gap": 8,
+                "maxWidth": {
+                  "value": 320,
+                  "unit": "px"
+                }
+              }
+            },
+            {
+              "id": "n_tdh0zmar7m",
+              "type": "progress",
+              "name": "Tiến độ",
+              "props": {
+                "title": "Tiến độ học phần",
+                "showTitle": true,
+                "basis": "periods",
+                "manual": 50,
+                "look": "bar",
+                "showMilestones": true,
+                "size": "small",
+                "color": "#1f5f8b",
+                "countToday": true
+              },
+              "style": {
+                "bg": "#ffffff",
+                "borderStyle": "solid",
+                "borderWidth": 1,
+                "borderColor": "#e2e8f0",
+                "radius": {
+                  "tl": 12,
+                  "tr": 12,
+                  "br": 12,
+                  "bl": 12
+                },
+                "padding": {
+                  "t": 14,
+                  "r": 14,
+                  "b": 14,
+                  "l": 14
+                },
+                "gap": 10
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_00sd7u5enn",
+      "type": "schedule",
+      "name": "Lịch học",
+      "props": {
+        "size": "full",
+        "title": "Lịch học cả học kỳ",
+        "showTitle": true,
+        "titleStyle": "inline",
+        "month": "auto",
+        "weekStart": "mon",
+        "showWeekNo": true,
+        "markStyle": "fill",
+        "showLabels": true,
+        "showLegend": true,
+        "showAgenda": "month",
+        "showNext": true,
+        "dimPast": true
+      },
+      "style": {
+        "bg": "#ffffff",
+        "borderStyle": "solid",
+        "borderWidth": 1,
+        "borderColor": "#e2e8f0",
+        "radius": {
+          "tl": 12,
+          "tr": 12,
+          "br": 12,
+          "bl": 12
+        },
+        "padding": {
+          "t": 20,
+          "r": 20,
+          "b": 20,
+          "l": 20
+        },
+        "gap": 12
+      }
+    }
+  ]
+}
